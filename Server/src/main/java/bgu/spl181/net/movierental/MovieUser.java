@@ -1,6 +1,5 @@
 package bgu.spl181.net.movierental;
 
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -18,7 +17,6 @@ public class MovieUser {
     private List<String> movies;
     @SerializedName("balance")
     private int balance;
-    private boolean loggedin;
 
     public MovieUser(String username, String type, String password, String country, List<String> movies, int balance) {
         this.username = username;
@@ -27,7 +25,6 @@ public class MovieUser {
         this.country = country;
         this.movies = movies;
         this.balance = balance;
-        loggedin=false;
     }
 
     public List<String> getMovies() {
@@ -44,13 +41,5 @@ public class MovieUser {
 
     public void setBalance(int balance) {
         this.balance = balance;
-    }
-
-    public boolean isLoggedin() {
-        return loggedin;
-    }
-
-    public void setLoggedin(boolean loggedin) {
-        this.loggedin = loggedin;
     }
 }

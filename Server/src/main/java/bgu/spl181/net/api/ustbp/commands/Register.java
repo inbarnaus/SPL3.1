@@ -1,9 +1,6 @@
-package bgu.spl181.net.movierental.commands;
+package bgu.spl181.net.api.ustbp.commands;
 
-import bgu.spl181.net.api.bidi.Connections;
-import bgu.spl181.net.movierental.Command;
-import bgu.spl181.net.movierental.Database;
-import bgu.spl181.net.movierental.User;
+import bgu.spl181.net.api.ustbp.Command;
 
 import java.util.List;
 
@@ -12,8 +9,8 @@ public class Register extends Command {
     private String password;
     private List<String> dataBlock;
 
-    public Register(String username, String password, List<String> dataBlock) {
-        this.name="REGISTER";
+    public Register(String name,String username, String password, List<String> dataBlock) {
+        this.name=name;
         this.username = username;
         this.password = password;
         this.dataBlock = dataBlock;
@@ -41,11 +38,5 @@ public class Register extends Command {
 
     public void setDataBlock(List<String> dataBlock) {
         this.dataBlock = dataBlock;
-    }
-
-    @Override
-    public void execute(Database database, Connections connections, int connectionId) {
-        User user=database.checkIfExist(username);
-        if(user!=null || connections.isLoggedIn(connectionId))
     }
 }
