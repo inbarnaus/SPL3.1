@@ -1,4 +1,4 @@
-package bgu.spl181.net.movierental;
+package bgu.spl181.net.api.ustbp;
 
 public abstract class User {
     private String username;

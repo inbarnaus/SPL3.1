@@ -1,10 +1,6 @@
-package bgu.spl181.net.movierental;
+package bgu.spl181.net.api.ustbp;
 
 import bgu.spl181.net.api.bidi.Connections;
-import bgu.spl181.net.movierental.commands.Register;
-
-import java.io.Serializable;
-import java.util.List;
 
 public abstract class Command<T> {
     protected String name;;

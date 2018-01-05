@@ -1,12 +1,7 @@
-package bgu.spl181.net.movierental;
+package bgu.spl181.net.api.ustbp;
 
 import bgu.spl181.net.api.bidi.BidiMessagingProtocol;
 import bgu.spl181.net.api.bidi.Connections;
-
-import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 public abstract class USTBP implements BidiMessagingProtocol<Command>{
 

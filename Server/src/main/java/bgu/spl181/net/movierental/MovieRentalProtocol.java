@@ -2,7 +2,8 @@ package bgu.spl181.net.movierental;
 
 import bgu.spl181.net.api.bidi.BidiMessagingProtocol;
 import bgu.spl181.net.api.bidi.Connections;
-import bgu.spl181.net.movierental.commands.Register;
+import bgu.spl181.net.api.ustbp.Command;
+import bgu.spl181.net.api.ustbp.commands.Register;
 
 import java.util.HashMap;
 import java.util.List;

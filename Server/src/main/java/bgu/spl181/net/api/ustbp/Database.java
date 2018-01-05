@@ -1,9 +1,7 @@
-package bgu.spl181.net.movierental;
+package bgu.spl181.net.api.ustbp;
 
 import com.google.gson.JsonArray;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
-import java.util.HashMap;
 
 public abstract class Database<T> {
     private JsonArray users;
