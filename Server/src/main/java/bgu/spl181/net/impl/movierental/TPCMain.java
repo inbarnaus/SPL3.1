@@ -18,8 +18,8 @@ public class TPCMain {
         Server.threadPerClient(
                 7777, //port
                 ()-> new MovieRentalProtocol(database), //protocol factory
-                CommandEncoderDecoder::new //message encoder decoder factory
+                CommandEncoderDecoder::new, //message encoder decoder factory
+                connections
         ).serve();
-        System.out.println("sdfsdf");
     }
 }
