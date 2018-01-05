@@ -1,35 +1,18 @@
 package bgu.spl181.net.srv;
 
-import bgu.spl181.net.api.MessageEncoderDecoder;
-import bgu.spl181.net.api.bidi.BidiMessagingProtocol;
 import bgu.spl181.net.api.bidi.Connections;
+import bgu.spl181.net.api.ustbp.User;
 import bgu.spl181.net.srv.bidi.ConnectionHandler;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.function.Supplier;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class TPCConnections<T> implements Connections<T> {
-    private HashMap<Integer, ConnectionHandler<T>> handlers;
-    private final Supplier<BidiMessagingProtocol<T>> protocolFactory;
-    private final Supplier<MessageEncoderDecoder<T>> encdecFactory;
-
-    @Override
-    public void logIn(int connectionsId) {
-
-    }
-
-    @Override
-    public boolean isLoggedIn(int connectionId) {
-        return false;
-    }
-
-    public TPCConnections(Supplier<BidiMessagingProtocol<T>> protocolFactory, Supplier<MessageEncoderDecoder<T>> encdecFactory) {
-        this.protocolFactory = protocolFactory;
-        this.encdecFactory = encdecFactory;
-    }
+    private Map<Integer, ConnectionHandler<T>> handlers = new ConcurrentHashMap<>();
+    private Map<Integer, ConnectionHandler<T>> loggedin = new ConcurrentHashMap<>();
+    private Map<User, Integer> loggedinUsers = new ConcurrentHashMap<>();
 
     @Override
     public boolean send(int connectionId, T msg) {
@@ -42,7 +25,7 @@ public class TPCConnections<T> implements Connections<T> {
 
     @Override
     public void broadcast(T msg) {
-        Iterator it = handlers.entrySet().iterator();
+        Iterator it = loggedin.entrySet().iterator();
         while (it.hasNext()){
             Map.Entry pair = (Map.Entry)it.next();
             ((BlockingConnectionHandler)pair.getValue()).send(msg);
@@ -55,6 +38,8 @@ public class TPCConnections<T> implements Connections<T> {
             try {
                 handlers.get(connectionId).close();
                 handlers.remove(connectionId);
+                loggedin.remove(connectionId);
+                loggedinUsers.remove(idToUser(connectionId));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -62,5 +47,33 @@ public class TPCConnections<T> implements Connections<T> {
     }
     public void add(int connectionid ,ConnectionHandler<T> handler){
         handlers.put(connectionid, handler);
+    }
+
+    @Override
+    public void logIn(int connectionId, User user) {
+        loggedin.put(connectionId, handlers.get(connectionId));
+        loggedinUsers.put(user,connectionId);
+
+    }
+
+    @Override
+    public boolean isLoggedIn(int connectionId) {
+        return loggedin.containsKey(connectionId);
+    }
+
+    @Override
+    public boolean isLoggedIn(String username) {
+        return loggedinUsers.containsKey(username);
+    }
+
+    private User idToUser(int connectionId){
+        Iterator it = loggedinUsers.entrySet().iterator();
+        while(it.hasNext()){
+            Map.Entry pair = (Map.Entry)it.next();
+            if((int)pair.getValue()==connectionId){
+                return (User)pair.getKey();
+            }
+        }
+        return null;
     }
 }

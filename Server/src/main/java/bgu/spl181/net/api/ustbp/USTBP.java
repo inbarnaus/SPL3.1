@@ -2,8 +2,9 @@ package bgu.spl181.net.api.ustbp;
 
 import bgu.spl181.net.api.bidi.BidiMessagingProtocol;
 import bgu.spl181.net.api.bidi.Connections;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-public abstract class USTBP implements BidiMessagingProtocol<Command>{
+public abstract class USTBP  implements BidiMessagingProtocol<Command>{
 
     private Connections<Command> connections;
     private int connectionId;
@@ -20,6 +21,11 @@ public abstract class USTBP implements BidiMessagingProtocol<Command>{
     }
 
     public void process(Command message){
-        message.execute(database, connections,connectionId);
+        throw new NotImplementedException();
+    }
+
+    @Override
+    public boolean shouldTerminate() {
+        throw new NotImplementedException();
     }
 }
