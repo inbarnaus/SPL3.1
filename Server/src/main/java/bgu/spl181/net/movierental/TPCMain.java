@@ -8,7 +8,7 @@ import bgu.spl181.net.srv.TPCConnections;
 public class TPCMain {
     public static void main(String[] args) {
         Connections connections = new TPCConnections(); //one shared object
-        Database database ;
+        Database database = new MovieDatabase();
         /*
         Server.threadPerClient(
                 7777, //port
