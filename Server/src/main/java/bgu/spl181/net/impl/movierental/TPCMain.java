@@ -14,11 +14,12 @@ public class TPCMain {
                 "Database/Users.json",
                 "Database/Movies.json"
         );
+
         Server.threadPerClient(
                 7777, //port
                 ()-> new MovieRentalProtocol(database), //protocol factory
                 CommandEncoderDecoder::new //message encoder decoder factory
         ).serve();
-
+        System.out.println("sdfsdf");
     }
 }
