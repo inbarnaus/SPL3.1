@@ -1,16 +1,15 @@
-package bgu.spl181.net.movierental;
+package bgu.spl181.net.impl.movierental;
 
 import bgu.spl181.net.api.ustbp.Command;
 import bgu.spl181.net.api.ustbp.Database;
-import com.google.gson.JsonArray;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class MovieDatabase extends Database<Command>{
-    private JsonArray movies;
+    private final String moviesPath;
 
-    public MovieDatabase(JsonArray users, JsonArray movies) {
-        super(users);
-        this.movies = movies;
+    public MovieDatabase(String usersPath, String moviesPath) {
+        super(usersPath);
+        this.moviesPath = moviesPath;
     }
 
     @Override

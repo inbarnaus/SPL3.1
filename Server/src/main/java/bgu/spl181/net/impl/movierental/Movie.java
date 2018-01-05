@@ -1,4 +1,4 @@
-package bgu.spl181.net.movierental;
+package bgu.spl181.net.impl.movierental;
 
 import com.google.gson.annotations.SerializedName;
 

@@ -13,25 +13,68 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="TPCConnections.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="TPCConnections.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl181/net/srv/TPCConnections.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="18">
-              <caret line="20" column="0" lean-forward="false" selection-start-line="25" selection-start-column="8" selection-end-line="25" selection-end-column="21" />
+            <state relative-caret-position="126">
+              <caret line="17" column="50" lean-forward="false" selection-start-line="17" selection-start-column="50" selection-end-line="17" selection-end-column="50" />
               <folding>
-                <element signature="e#753#754#0" expanded="true" />
-                <element signature="e#781#782#0" expanded="true" />
+                <element signature="e#1594#1595#0" expanded="true" />
+                <element signature="e#1645#1646#0" expanded="true" />
+                <element signature="e#1895#1896#0" expanded="true" />
+                <element signature="e#1952#1953#0" expanded="true" />
+                <element signature="e#2016#2017#0" expanded="true" />
+                <element signature="e#2074#2075#0" expanded="true" />
+                <element signature="method#idToUser#0;class#TPCConnections#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TPCMain.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl181/net/movierental/TPCMain.java">
+      <file leaf-file-name="Connections.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl181/net/api/bidi/Connections.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="10" column="46" lean-forward="false" selection-start-line="10" selection-start-column="46" selection-end-line="10" selection-end-column="46" />
+            <state relative-caret-position="288">
+              <caret line="19" column="38" lean-forward="false" selection-start-line="19" selection-start-column="38" selection-end-line="19" selection-end-column="38" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TPCMain.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl181/net/impl/movierental/TPCMain.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="198">
+              <caret line="15" column="10" lean-forward="true" selection-start-line="15" selection-start-column="10" selection-end-line="15" selection-end-column="10" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MovieRentalProtocol.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl181/net/impl/movierental/MovieRentalProtocol.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="72">
+              <caret line="6" column="32" lean-forward="false" selection-start-line="6" selection-start-column="32" selection-end-line="6" selection-end-column="32" />
+              <folding>
+                <element signature="e#272#273#0" expanded="true" />
+                <element signature="e#303#304#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="USTBP.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl181/net/api/ustbp/USTBP.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="180">
+              <caret line="14" column="33" lean-forward="false" selection-start-line="14" selection-start-column="33" selection-end-line="14" selection-end-column="33" />
+              <folding>
+                <element signature="e#727#728#0" expanded="true" />
+                <element signature="e#778#779#0" expanded="true" />
+                <element signature="e#832#833#0" expanded="true" />
+                <element signature="e#883#884#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -39,15 +82,30 @@
       <file leaf-file-name="Database.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl181/net/api/ustbp/Database.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="72">
-              <caret line="8" column="22" lean-forward="false" selection-start-line="8" selection-start-column="22" selection-end-line="8" selection-end-column="22" />
+            <state relative-caret-position="253">
+              <caret line="20" column="34" lean-forward="false" selection-start-line="20" selection-start-column="34" selection-end-line="20" selection-end-column="34" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="method#addUser#0;class#Database#0" expanded="false" />
+                <element signature="method#checkIfExist#0;class#Database#0" expanded="false" />
+                <element signature="method#checkIfExist#1;class#Database#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MovieDatabase.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl181/net/impl/movierental/MovieDatabase.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="162">
+              <caret line="11" column="36" lean-forward="false" selection-start-line="11" selection-start-column="36" selection-end-line="11" selection-end-column="36" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="CommandEncoderDecoder.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl181/net/movierental/CommandEncoderDecoder.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl181/net/impl/movierental/CommandEncoderDecoder.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="450">
               <caret line="33" column="18" lean-forward="false" selection-start-line="33" selection-start-column="18" selection-end-line="33" selection-end-column="18" />
@@ -92,7 +150,6 @@
         <option value="$PROJECT_DIR$/src/main/java/bgu/spl181/net/impl/newsfeed/NewsFeedServerMain.java" />
         <option value="$PROJECT_DIR$/src/main/java/bgu/spl181/net/api/bidi/BidiMessagingProtocol.java" />
         <option value="$PROJECT_DIR$/src/main/java/bgu/spl181/net/impl/movierental.java" />
-        <option value="$PROJECT_DIR$/src/main/java/bgu/spl181/net/api/bidi/Connections.java" />
         <option value="$PROJECT_DIR$/src/main/java/bgu/spl181/net/srv/BlockingConnectionHandler.java" />
         <option value="$PROJECT_DIR$/src/main/java/bgu/spl181/net/srv/BaseServer.java" />
         <option value="$PROJECT_DIR$/src/main/java/bgu/spl181/net/srv/Server.java" />
@@ -103,19 +160,25 @@
         <option value="$PROJECT_DIR$/src/main/java/bgu/spl181/net/movierental/Movie.java" />
         <option value="$PROJECT_DIR$/src/main/java/bgu/spl181/net/movierental/MovieClient.java" />
         <option value="$PROJECT_DIR$/src/main/java/bgu/spl181/net/movierental/MovieUser.java" />
-        <option value="$PROJECT_DIR$/src/main/java/bgu/spl181/net/movierental/MovieRentalProtocol.java" />
         <option value="$PROJECT_DIR$/src/main/java/bgu/spl181/net/movierental/commands/RegisterCommand.java" />
         <option value="$PROJECT_DIR$/src/main/java/bgu/spl181/net/movierental/CommandEncoderDecoder.java" />
         <option value="$PROJECT_DIR$/src/main/java/bgu/spl181/net/movierental/Command.java" />
         <option value="$PROJECT_DIR$/src/main/java/bgu/spl181/net/movierental/commands/ERRORCommand.java" />
         <option value="$PROJECT_DIR$/src/main/java/bgu/spl181/net/movierental/commands/ACKCommand.java" />
         <option value="$PROJECT_DIR$/src/main/java/bgu/spl181/net/movierental/commands/NoCommandError.java" />
-        <option value="$PROJECT_DIR$/src/main/java/bgu/spl181/net/srv/TPCConnections.java" />
         <option value="$PROJECT_DIR$/src/main/java/bgu/spl181/net/movierental/User.java" />
         <option value="$PROJECT_DIR$/src/main/java/bgu/spl181/net/movierental/USTBP.java" />
         <option value="$PROJECT_DIR$/src/main/java/bgu/spl181/net/movierental/commands/Login.java" />
         <option value="$PROJECT_DIR$/src/main/java/bgu/spl181/net/movierental/commands/Register.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bgu/spl181/net/api/bidi/Connections.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bgu/spl181/net/srv/TPCConnections.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bgu/spl181/net/api/ustbp/Database.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bgu/spl181/net/movierental/MovieDatabase.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bgu/spl181/net/api/ustbp/USTBP.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bgu/spl181/net/movierental/MovieRentalProtocol.java" />
         <option value="$PROJECT_DIR$/src/main/java/bgu/spl181/net/movierental/TPCMain.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bgu/spl181/net/impl/movierental/MovieRentalProtocol.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bgu/spl181/net/impl/movierental/TPCMain.java" />
       </list>
     </option>
   </component>
@@ -216,15 +279,6 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="net" type="462c0819:PsiDirectoryNode" />
-              <item name="echo" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Server" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Server" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="net" type="462c0819:PsiDirectoryNode" />
               <item name="movierental" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -260,7 +314,7 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../Reference/Server" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -379,7 +433,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="75" y="16" width="1303" height="780" extended-state="6" />
+    <frame x="65" y="-4" width="1301" height="772" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -395,6 +449,7 @@
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27363566" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -407,7 +462,6 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934132" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -446,10 +500,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl181/net/srv/TPCMessagingProtocol.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl181/net/srv/TPCServer.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl181/net/srv/TPCConnectionHandler.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl181/net/srv/bidi.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl181/net/api/MovieRentalsProtocol.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl181/net/api/bidi/TPCHandler.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl181/net/srv/bidi/BidiTPCHandler.java" />
@@ -464,7 +514,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl181/net/impl/rci/RCIClient.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl181/net/impl/rci/RemoteCommandInvocationProtocol.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl181/net/api/bidi/BidiMessagingProtocol.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl181/net/movierental/MovieUser.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl181/net/impl/movierental/MovieUser.java" />
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="375">
@@ -481,7 +531,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl181/net/movierental/Movie.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl181/net/impl/movierental/Movie.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-308">
           <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
@@ -555,14 +605,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl181/net/movierental/commands/ServerCommand.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl181/net/movierental/MovieRentalProtocol.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="175">
-          <caret line="19" column="5" lean-forward="true" selection-start-line="19" selection-start-column="5" selection-end-line="19" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl181/net/impl/echo/LineMessageEncoderDecoder.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="200">
@@ -591,21 +633,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl181/net/api/bidi/Connections.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="100">
-          <caret line="6" column="17" lean-forward="false" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl181/net/movierental/User.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl181/net/movierental/Command.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl181/net/movierental/Database.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl181/net/movierental/USTBP.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl181/net/movierental/commands/Login.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl181/net/movierental/commands/Register.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl181/net/movierental/CommandEncoderDecoder.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl181/net/impl/movierental/CommandEncoderDecoder.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="450">
           <caret line="33" column="18" lean-forward="false" selection-start-line="33" selection-start-column="18" selection-end-line="33" selection-end-column="18" />
@@ -613,30 +647,96 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl181/net/movierental/TPCMain.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl181/net/api/bidi/Connections.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="10" column="46" lean-forward="false" selection-start-line="10" selection-start-column="46" selection-end-line="10" selection-end-column="46" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl181/net/api/ustbp/Database.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="8" column="22" lean-forward="false" selection-start-line="8" selection-start-column="22" selection-end-line="8" selection-end-column="22" />
+        <state relative-caret-position="288">
+          <caret line="19" column="38" lean-forward="false" selection-start-line="19" selection-start-column="38" selection-end-line="19" selection-end-column="38" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl181/net/srv/TPCConnections.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="18">
-          <caret line="20" column="0" lean-forward="false" selection-start-line="25" selection-start-column="8" selection-end-line="25" selection-end-column="21" />
+        <state relative-caret-position="126">
+          <caret line="17" column="50" lean-forward="false" selection-start-line="17" selection-start-column="50" selection-end-line="17" selection-end-column="50" />
           <folding>
-            <element signature="e#753#754#0" expanded="true" />
-            <element signature="e#781#782#0" expanded="true" />
+            <element signature="e#1594#1595#0" expanded="true" />
+            <element signature="e#1645#1646#0" expanded="true" />
+            <element signature="e#1895#1896#0" expanded="true" />
+            <element signature="e#1952#1953#0" expanded="true" />
+            <element signature="e#2016#2017#0" expanded="true" />
+            <element signature="e#2074#2075#0" expanded="true" />
+            <element signature="method#idToUser#0;class#TPCConnections#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl181/net/impl/movierental/MovieDatabase.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="11" column="36" lean-forward="false" selection-start-line="11" selection-start-column="36" selection-end-line="11" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl181/net/api/ustbp/Database.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="253">
+          <caret line="20" column="34" lean-forward="false" selection-start-line="20" selection-start-column="34" selection-end-line="20" selection-end-column="34" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#addUser#0;class#Database#0" expanded="false" />
+            <element signature="method#checkIfExist#0;class#Database#0" expanded="false" />
+            <element signature="method#checkIfExist#1;class#Database#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl181/net/api/ustbp/Command.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="7" column="22" lean-forward="false" selection-start-line="7" selection-start-column="22" selection-end-line="7" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl181/net/api/ustbp/USTBP.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="14" column="33" lean-forward="false" selection-start-line="14" selection-start-column="33" selection-end-line="14" selection-end-column="33" />
+          <folding>
+            <element signature="e#727#728#0" expanded="true" />
+            <element signature="e#778#779#0" expanded="true" />
+            <element signature="e#832#833#0" expanded="true" />
+            <element signature="e#883#884#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/Downloads/Program Files/jdk1.8.0_151/src.zip!/java/util/function/Supplier.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="432">
+          <caret line="47" column="6" lean-forward="false" selection-start-line="47" selection-start-column="6" selection-end-line="47" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl181/net/impl/movierental/MovieRentalProtocol.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="6" column="32" lean-forward="false" selection-start-line="6" selection-start-column="32" selection-end-line="6" selection-end-column="32" />
+          <folding>
+            <element signature="e#272#273#0" expanded="true" />
+            <element signature="e#303#304#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl181/net/impl/movierental/TPCMain.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="15" column="10" lean-forward="true" selection-start-line="15" selection-start-column="10" selection-end-line="15" selection-end-column="10" />
+          <folding />
         </state>
       </provider>
     </entry>

@@ -1,16 +1,17 @@
 package bgu.spl181.net.api.ustbp;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+import com.google.gson.*;
+import com.google.gson.stream.JsonReader;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import java.io.*;
+
 public abstract class Database<T> {
-    private JsonArray users;
-    private Gson gson = new Gson();
-    public Database(JsonArray users){
-        this.users=users;
+    private final Object usersLock = new Object();
+    private final String usersPath;
+    private Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    public Database(String usersPath){
+        this.usersPath=usersPath;
     }
 
     /**
@@ -18,21 +19,36 @@ public abstract class Database<T> {
      * @param user
      */
     public void addUser(User user){
-        users.add(gson.toJsonTree(user));
+        synchronized (usersLock) {
+            try (Writer writer = new FileWriter(usersPath)) {
+                gson.toJson(gson.toJsonTree(user), writer);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
+
     /**
      * Get the movie from the database
      * @param username the requested user
      * @return Movie object. null if not exists
      */
     public User checkIfExist(String username){
-        synchronized (users) {
-            for (JsonElement currj : users
-                    ) {
-                JsonObject currjobject = currj.getAsJsonObject();
-                if (currjobject.get("username").getAsString().equals(username)) {
-                    return gson.fromJson(currj, User.class);
+        synchronized (usersLock) {
+            try(JsonReader reader = new JsonReader(new FileReader(usersPath))) {
+                JsonParser parser = new JsonParser();
+                JsonArray jusers = parser.parse(reader).getAsJsonArray();
+                for (JsonElement currj : jusers
+                        ) {
+                    JsonObject currjobject = currj.getAsJsonObject();
+                    if (currjobject.get("username").getAsString().equals(username)) {
+                        return gson.fromJson(currj, User.class);
+                    }
                 }
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
         return null;
@@ -44,13 +60,21 @@ public abstract class Database<T> {
      * @return Movie object. null if not exists
      */
     public User checkIfExist(User user) {
-        synchronized (users) {
-            for (JsonElement currj : users
-                    ) {
-                JsonObject currjobject = currj.getAsJsonObject();
-                if (currjobject.get("username").getAsString().equals(user.getUsername())) {
-                    return gson.fromJson(currj, User.class);
+        synchronized (usersLock) {
+            try(JsonReader reader = new JsonReader(new FileReader(usersPath))) {
+                JsonParser parser = new JsonParser();
+                JsonArray jusers = parser.parse(reader).getAsJsonArray();
+                for (JsonElement currj : jusers
+                        ) {
+                    JsonObject currjobject = currj.getAsJsonObject();
+                    if (currjobject.get("username").getAsString().equals(user.getUsername())) {
+                        return gson.fromJson(currj, User.class);
+                    }
                 }
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
         return null;

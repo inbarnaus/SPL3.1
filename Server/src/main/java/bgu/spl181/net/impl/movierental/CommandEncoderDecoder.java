@@ -1,4 +1,4 @@
-package bgu.spl181.net.movierental;
+package bgu.spl181.net.impl.movierental;
 
 import bgu.spl181.net.api.MessageEncoderDecoder;
 import bgu.spl181.net.api.ustbp.Command;

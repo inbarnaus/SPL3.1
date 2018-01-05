@@ -1,6 +1,7 @@
 package bgu.spl181.net.srv;
 
 import bgu.spl181.net.api.bidi.Connections;
+import bgu.spl181.net.api.ustbp.User;
 import bgu.spl181.net.srv.bidi.ConnectionHandler;
 
 import java.io.IOException;
@@ -11,6 +12,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class TPCConnections<T> implements Connections<T> {
     private Map<Integer, ConnectionHandler<T>> handlers = new ConcurrentHashMap<>();
     private Map<Integer, ConnectionHandler<T>> loggedin = new ConcurrentHashMap<>();
+    private Map<User, Integer> loggedinUsers = new ConcurrentHashMap<>();
 
     @Override
     public boolean send(int connectionId, T msg) {
@@ -37,6 +39,7 @@ public class TPCConnections<T> implements Connections<T> {
                 handlers.get(connectionId).close();
                 handlers.remove(connectionId);
                 loggedin.remove(connectionId);
+                loggedinUsers.remove(idToUser(connectionId));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -47,12 +50,30 @@ public class TPCConnections<T> implements Connections<T> {
     }
 
     @Override
-    public void logIn(int connectionsId) {
-        loggedin.put(connectionsId, handlers.get(connectionsId));
+    public void logIn(int connectionId, User user) {
+        loggedin.put(connectionId, handlers.get(connectionId));
+        loggedinUsers.put(user,connectionId);
+
     }
 
     @Override
     public boolean isLoggedIn(int connectionId) {
         return loggedin.containsKey(connectionId);
+    }
+
+    @Override
+    public boolean isLoggedIn(String username) {
+        return loggedinUsers.containsKey(username);
+    }
+
+    private User idToUser(int connectionId){
+        Iterator it = loggedinUsers.entrySet().iterator();
+        while(it.hasNext()){
+            Map.Entry pair = (Map.Entry)it.next();
+            if((int)pair.getValue()==connectionId){
+                return (User)pair.getKey();
+            }
+        }
+        return null;
     }
 }
