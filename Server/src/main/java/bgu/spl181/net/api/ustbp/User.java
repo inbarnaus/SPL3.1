@@ -2,18 +2,18 @@ package bgu.spl181.net.api.ustbp;
 
 public abstract class User {
     private String username;
-    private final boolean admin;
+    private String password;
+    private boolean isAdmin;
 
-    public User(String username, boolean admin){
+    public User(String username){
         this.username=username;
-        this.admin=admin;
     }
 
     public String getUsername() {
         return username;
     }
 
-    public boolean isAdmin() {
-        return admin;
+    public boolean correctPassword(String password){
+        return this.password==password;
     }
 }
