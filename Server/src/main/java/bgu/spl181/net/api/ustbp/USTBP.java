@@ -30,7 +30,7 @@ public abstract class USTBP  implements BidiMessagingProtocol<Command>{
     }
 
     public void process(String message){
-    public abstract void process(Request message);
+        String[] commandParts = message.split(" ");
         switch (commandParts[0]){
             case "LOGIN":
                 User user=database.checkIfExist(commandParts[1]);
