@@ -59,4 +59,8 @@ public class Movie {
         this.totalAmount = totalAmount;
     }
 
+    public boolean isBanned(String country){
+        return bannedCountries.contains(country);
+    }
+
 }

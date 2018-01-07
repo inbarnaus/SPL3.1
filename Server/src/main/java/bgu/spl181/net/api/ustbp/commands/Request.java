@@ -22,5 +22,5 @@ public abstract class Request extends Command {
     }
 
     @Override
-    public abstract void execute(Class<? extends Database> database, Connections connections, int connectionId);
+    public abstract void execute(Database database, Connections<Command> connections, int connectionId);
 }

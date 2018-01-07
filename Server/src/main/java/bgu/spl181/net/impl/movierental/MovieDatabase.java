@@ -8,7 +8,6 @@ public class MovieDatabase extends Database<Command>{
     private final String moviesPath;
 
     public MovieDatabase(String usersPath, String moviesPath) {
-
         this.moviesPath = moviesPath;
     }
 
@@ -20,4 +19,8 @@ public class MovieDatabase extends Database<Command>{
     public boolean movieExist(String movie){ throw new NotImplementedException(); }
 
     public Movie getMovie(String movie){ throw new NotImplementedException(); }
+
+    public String moviesInSystem(){ throw new NotImplementedException(); }
+
+    public String movieInfo(){ throw new NotImplementedException(); }
 }

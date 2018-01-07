@@ -1,10 +1,7 @@
 package bgu.spl181.net.api.ustbp;
 
 import bgu.spl181.net.api.MessageEncoderDecoder;
-import bgu.spl181.net.api.ustbp.commands.Login;
-import bgu.spl181.net.api.ustbp.commands.Register;
-import bgu.spl181.net.api.ustbp.commands.Request;
-import bgu.spl181.net.api.ustbp.commands.Signout;
+import bgu.spl181.net.api.ustbp.commands.*;
 
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -63,8 +60,25 @@ public class CommandEncoderDecoder implements MessageEncoderDecoder<Command> {
             case "SIGNOUT":
                 return new Signout();
             case "REQUEST":
+                List<String> parameters=new ArrayList<>();
+                for(int i=2; i<commandParts.length ;i++){
+                    parameters.add(commandParts[i]);
+                }
                 switch (commandParts[1]){
-                    case ""
+                    case "rent":
+                        return new NormalRequest(commandParts[1], parameters);
+                    case "return":
+                        return new NormalRequest(commandParts[1], parameters);
+                    case "info":
+                        return new NormalRequest(commandParts[1], parameters);
+                    case "balance":
+                        return new NormalRequest(commandParts[1], parameters);
+                    case "remmovie":
+                        return new AdminRequest(commandParts[1], parameters);
+                    case "addmovie":
+                        return new AdminRequest(commandParts[1], parameters);
+                    case "changeprice":
+                        return new AdminRequest(commandParts[1], parameters);
                 }
 
         }

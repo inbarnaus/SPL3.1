@@ -1,14 +1,18 @@
 package bgu.spl181.net.api.ustbp;
 
+import com.google.gson.annotations.SerializedName;
+
 public abstract class User {
+    @SerializedName("username")
     private String username;
+    @SerializedName("password")
     private String password;
     private boolean isAdmin;
-    private int balance;
 
-    public User(String username){
-        this.balance=0;
+    public User(String username, String password, boolean admin){
         this.username=username;
+        this.isAdmin=admin;
+        this.password=password;
     }
 
     public void setAdmin(boolean admin) { isAdmin = admin; }
@@ -16,12 +20,6 @@ public abstract class User {
     public String getUsername() {
         return username;
     }
-
-    public void setBalance(int balance){ this.balance=balance; }
-
-    public int getBalance() { return balance; }
-
-    public void addBalance(int amount){ this.balance=balance+amount; }
 
     public boolean correctPassword(String password){
         return this.password==password;

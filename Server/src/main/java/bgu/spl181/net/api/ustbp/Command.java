@@ -4,13 +4,13 @@ import bgu.spl181.net.api.bidi.Connections;
 
 import java.util.List;
 
-public abstract class Command<T> {
+public abstract class Command {
     protected String name;;
     public String getName() {
         return name;
     }
 
-    public abstract void execute(Class<? extends Database> database, Connections<T> connections, int connectionId);
+    public abstract void execute(Database database, Connections<Command> connections, int connectionId);
 /*
  public static Command generate(List<String> line){
         if(line.get(0).equals("REGISTER")){
