@@ -22,10 +22,8 @@ public abstract class USTBP  implements BidiMessagingProtocol<String>{
         this.connectionId=connectionId;
     }
 
-<<<<<<< HEAD
-    public void process(Command message){
-        throw new NotImplementedException();
-    }
+    public abstract void process(String message);
+    public abstract void process(Request message);
     public abstract void process(Request message);
 =======
     public abstract void process(String message);
