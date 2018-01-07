@@ -2,7 +2,6 @@ package bgu.spl181.net.api.ustbp;
 
 import bgu.spl181.net.api.ustbp.commands.*;
 import bgu.spl181.net.impl.movierental.Movie;
-import bgu.spl181.net.impl.movierental.MovieDatabase;
 import bgu.spl181.net.impl.movierental.MovieUser;
 import bgu.spl181.net.srv.TPCConnections;
 
@@ -31,17 +30,29 @@ public class RentalServiceSection extends USTBP {
         switch (commandParts[1]) {
             case "rent":
                 if (!logedIn || parameters.size() < 2)
-                    connections.send(connectionId, new ERRORCommand("request rent failed"));
+                    ((TPCConnections)connections).send(connectionId, new ERRORCommand("request rent failed"));
                 else {
                     String movie = parameters.get(2);
                     boolean canRent = userCanRent(user, movie, database);
-                    if (canRent)
-                        ((TPCConnections) connections).send(connectionId, ((MovieDatabase) database).rentMovie(movie));
+                    if (canRent) {
+                        Movie rentMovie=((MovieDatabase) database).rentMovie(movie);
+                        if(rentMovie==null)
+                            ((TPCConnections)connections).send(connectionId, new ERRORCommand("request rent failed"));
+                        else ((TPCConnections) connections).send(connectionId, new ACKCommand("rent "+movie+" success"));
+                    }
                     else
-                        connections.send(connectionId, new ERRORCommand("request rent failed"));
+                        ((TPCConnections)connections).send(connectionId, new ERRORCommand("request rent failed"));
                 }
             case "return":
-                return new NormalRequest(commandParts[1], parameters);
+                String movie=parameters.get(1);
+                if(!logedIn || !((MovieUser)user).isRent(movie) || ((MovieDatabase)database).movieExist(movie))
+                    ((TPCConnections)connections).send(connectionId, new ERRORCommand("request return failed"));
+                else{
+                    Movie movieInfo=((MovieDatabase)database).getMovie(movie);
+                    ((TPCConnections) connections).send(connectionId, new ACKCommand("request "+ movie+" "+"success"));
+                    ((TPCConnections) connections).broadcast(new BROADCASTCommand("movie "+ movie +
+                            movieInfo.getAvailableAmount()+" "+movieInfo.getPrice()));
+                }
             case "info":
                 return new NormalRequest(commandParts[1], parameters);
             case "balance":
@@ -73,5 +84,10 @@ public class RentalServiceSection extends USTBP {
         if(((MovieUser)user).isRent(movie))
             return false;
         return true;
+    }
+
+    @Override
+    public void registerCommand(String[] commandParts) {
+        super.registerCommand(commandParts);
     }
 }

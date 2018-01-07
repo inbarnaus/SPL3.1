@@ -1,10 +1,11 @@
-package bgu.spl181.net.impl.movierental;
+package bgu.spl181.net.api.ustbp;
 
 import bgu.spl181.net.api.ustbp.Command;
 import bgu.spl181.net.api.ustbp.Database;
+import bgu.spl181.net.impl.movierental.Movie;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-public class MovieDatabase extends Database<Command>{
+public class MovieDatabase extends Database<String>{
     private final String moviesPath;
 
     public MovieDatabase(String usersPath, String moviesPath) {
@@ -12,9 +13,9 @@ public class MovieDatabase extends Database<Command>{
     }
 
     @Override
-    public Command handleRequest(Command massege) { throw new NotImplementedException(); }
+    public String handleRequest(String massege) { throw new NotImplementedException(); }
 
-    public boolean rentMovie(String movie){ throw new NotImplementedException(); }
+    public Movie rentMovie(String movie){ throw new NotImplementedException(); }
 
     public boolean movieExist(String movie){ throw new NotImplementedException(); }
 

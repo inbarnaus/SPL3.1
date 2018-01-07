@@ -7,15 +7,16 @@ public abstract class User {
     private String username;
     @SerializedName("password")
     private String password;
-    private boolean isAdmin;
+    @SerializedName("type")
+    private String isAdmin;
 
-    public User(String username, String password, boolean admin){
+    public User(String username, String password, String admin){
         this.username=username;
         this.isAdmin=admin;
         this.password=password;
     }
 
-    public void setAdmin(boolean admin) { isAdmin = admin; }
+    public boolean isAdmin(){ return isAdmin.equals("admin"); }
 
     public String getUsername() {
         return username;

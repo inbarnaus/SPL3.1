@@ -42,30 +42,5 @@ public class CommandEncoderDecoder implements MessageEncoderDecoder<String> {
         String result = new String(bytes, 0, len, StandardCharsets.UTF_8);
         len = 0;
         return result;
-
-        String result = new String(bytes, 0, len, StandardCharsets.UTF_8);
-        len = 0;
-        String[] commandParts=result.split(" ");
-        String commandName=commandParts[0];
-        switch (commandName){
-            case "REGISTER":
-                if(commandParts.length>2){
-                    List<String> datablock=new ArrayList<>();
-                    for(int i=3; i<commandParts.length ;i++){
-                        datablock.add(commandParts[i]);
-                    }
-                    return new Register(commandParts[1],commandParts[2],datablock);
-                }
-                return new Register(commandParts[1],commandParts[2],null);
-            case "LOGIN":
-                return new Login(commandParts[1],commandParts[2]);
-            case "SIGNOUT":
-                return new Signout();
-            case "REQUEST":
-
-                }
-
-        }
-        return null;
     }
 }
