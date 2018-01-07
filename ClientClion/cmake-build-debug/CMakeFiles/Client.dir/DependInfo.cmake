@@ -4,8 +4,8 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/rotem/Code/Assignment3 SPL/308339597-312231665/ServerC/Client/src/connectionHandler.cpp" "/home/rotem/Code/Assignment3 SPL/308339597-312231665/ServerC/Client/cmake-build-debug/CMakeFiles/Client.dir/src/connectionHandler.cpp.o"
-  "/home/rotem/Code/Assignment3 SPL/308339597-312231665/ServerC/Client/src/echoClient.cpp" "/home/rotem/Code/Assignment3 SPL/308339597-312231665/ServerC/Client/cmake-build-debug/CMakeFiles/Client.dir/src/echoClient.cpp.o"
+  "/home/rotem/Code/Assignment3 SPL/308339597-312231665/ServerC/ClientClion/src/MovieClient.cpp" "/home/rotem/Code/Assignment3 SPL/308339597-312231665/ServerC/ClientClion/cmake-build-debug/CMakeFiles/Client.dir/src/MovieClient.cpp.o"
+  "/home/rotem/Code/Assignment3 SPL/308339597-312231665/ServerC/ClientClion/src/connectionHandler.cpp" "/home/rotem/Code/Assignment3 SPL/308339597-312231665/ServerC/ClientClion/cmake-build-debug/CMakeFiles/Client.dir/src/connectionHandler.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

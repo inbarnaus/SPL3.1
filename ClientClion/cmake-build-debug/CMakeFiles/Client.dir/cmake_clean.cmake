@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/Client.dir/src/connectionHandler.cpp.o"
-  "CMakeFiles/Client.dir/src/echoClient.cpp.o"
+  "CMakeFiles/Client.dir/src/MovieClient.cpp.o"
   "Client.pdb"
   "Client"
 )

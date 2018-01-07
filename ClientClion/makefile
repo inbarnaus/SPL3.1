@@ -1,31 +1,16 @@
-# All Targets
-all: BBclient
+CFLAGS:=-c -Wall -Weffc++ -g -std=c++11 -Iinclude
+LDFLAGS:=-lboost_thread -lboost_system -L/usr/local/lib
 
-# Tool invocations
-# Executable "BBclient"
-BBclient: \
-	bin/main.o \
-	bin/connectionHandler.o \
-	bin/echoClient[1].o
-	@echo 'Building target: BBclient'
-	@echo 'Invoking: C++ Linker'
-	g++ -o bin/BBclient bin/main.o \
-	bin/connectionHandler.o \
-    bin/echoClient[1].o
-	@echo 'Finished building target: BBclient'
-	@echo ' '
+all: MovieClient
+	g++ -o bin/BBclient bin/connectionHandler.o bin/MovieClient.o $(LDFLAGS) 
 
-# Depends on the source and header files
-bin/main.o: src/main.cpp
-	g++ -g -Wall -Weffc++ -std=c++11 -c -Iinclude -o bin/main.o src/main.cpp
-
-# Depends on the source and header files
+MovieClient: bin/connectionHandler.o bin/MovieClient.o
+	
 bin/connectionHandler.o: src/connectionHandler.cpp
-	g++ -g -Wall -Weffc++ -std=c++11 -c -Iinclude -o bin/connectionHandler.o src/connectionHandler.cpp
-# Depends on the source and header files
-bin/echoClient[1].o: src/echoClient[1].cpp
-    g++ -g -Wall -Weffc++ -std=c++11 -c -Iinclude -o bin/echoClient[1].o src/echoClient[1].cpp
-
-#Clean the build directory
+	g++ $(CFLAGS) -o bin/connectionHandler.o src/connectionHandler.cpp
+bin/MovieClient.o: src/MovieClient.cpp
+	g++ $(CFLAGS) -o bin/MovieClient.o src/MovieClient.cpp
+	
+.PHONY: clean
 clean:
 	rm -f bin/*

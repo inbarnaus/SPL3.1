@@ -8,43 +8,43 @@
 		<Option virtualFolders="CMake Files\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="/home/rotem/Code/Assignment3 SPL/308339597-312231665/ServerC/Client/cmake-build-debug"/>
+				<Option working_dir="/home/rotem/Code/Assignment3 SPL/308339597-312231665/ServerC/ClientClion/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/home/rotem/Code/Assignment3\ SPL/308339597-312231665/ServerC/Client/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/rotem/Code/Assignment3\ SPL/308339597-312231665/ServerC/Client/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/home/rotem/Code/Assignment3\ SPL/308339597-312231665/ServerC/Client/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/home/rotem/Code/Assignment3\ SPL/308339597-312231665/ServerC/Client/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/rotem/Code/Assignment3\ SPL/308339597-312231665/ServerC/ClientClion/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/rotem/Code/Assignment3\ SPL/308339597-312231665/ServerC/ClientClion/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/rotem/Code/Assignment3\ SPL/308339597-312231665/ServerC/ClientClion/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/rotem/Code/Assignment3\ SPL/308339597-312231665/ServerC/ClientClion/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
-				<Option working_dir="/home/rotem/Code/Assignment3 SPL/308339597-312231665/ServerC/Client/cmake-build-debug"/>
+				<Option working_dir="/home/rotem/Code/Assignment3 SPL/308339597-312231665/ServerC/ClientClion/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/home/rotem/Code/Assignment3\ SPL/308339597-312231665/ServerC/Client/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/rotem/Code/Assignment3\ SPL/308339597-312231665/ServerC/Client/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/home/rotem/Code/Assignment3\ SPL/308339597-312231665/ServerC/Client/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/home/rotem/Code/Assignment3\ SPL/308339597-312231665/ServerC/Client/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/rotem/Code/Assignment3\ SPL/308339597-312231665/ServerC/ClientClion/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/rotem/Code/Assignment3\ SPL/308339597-312231665/ServerC/ClientClion/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/rotem/Code/Assignment3\ SPL/308339597-312231665/ServerC/ClientClion/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/rotem/Code/Assignment3\ SPL/308339597-312231665/ServerC/ClientClion/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="edit_cache">
-				<Option working_dir="/home/rotem/Code/Assignment3 SPL/308339597-312231665/ServerC/Client/cmake-build-debug"/>
+				<Option working_dir="/home/rotem/Code/Assignment3 SPL/308339597-312231665/ServerC/ClientClion/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/home/rotem/Code/Assignment3\ SPL/308339597-312231665/ServerC/Client/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/rotem/Code/Assignment3\ SPL/308339597-312231665/ServerC/Client/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/home/rotem/Code/Assignment3\ SPL/308339597-312231665/ServerC/Client/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/home/rotem/Code/Assignment3\ SPL/308339597-312231665/ServerC/Client/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/rotem/Code/Assignment3\ SPL/308339597-312231665/ServerC/ClientClion/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/rotem/Code/Assignment3\ SPL/308339597-312231665/ServerC/ClientClion/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/rotem/Code/Assignment3\ SPL/308339597-312231665/ServerC/ClientClion/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/rotem/Code/Assignment3\ SPL/308339597-312231665/ServerC/ClientClion/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="Client">
-				<Option output="/home/rotem/Code/Assignment3 SPL/308339597-312231665/ServerC/Client/cmake-build-debug/Client" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/rotem/Code/Assignment3 SPL/308339597-312231665/ServerC/Client/cmake-build-debug"/>
+			<Target title="BBclient">
+				<Option output="/home/rotem/Code/Assignment3 SPL/308339597-312231665/ServerC/ClientClion/cmake-build-debug/BBclient" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/rotem/Code/Assignment3 SPL/308339597-312231665/ServerC/ClientClion/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="/usr/local/Cellar/boost/1.57.0/include/boost"/>
+					<Add option="-DHAS_BOOST"/>
 					<Add directory="/usr/include/c++/5"/>
 					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
 					<Add directory="/usr/include/c++/5/backward"/>
@@ -55,20 +55,20 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/home/rotem/Code/Assignment3\ SPL/308339597-312231665/ServerC/Client/cmake-build-debug/Makefile&quot;  VERBOSE=1 Client"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/rotem/Code/Assignment3\ SPL/308339597-312231665/ServerC/Client/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/home/rotem/Code/Assignment3\ SPL/308339597-312231665/ServerC/Client/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/home/rotem/Code/Assignment3\ SPL/308339597-312231665/ServerC/Client/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/rotem/Code/Assignment3\ SPL/308339597-312231665/ServerC/ClientClion/cmake-build-debug/Makefile&quot;  VERBOSE=1 BBclient"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/rotem/Code/Assignment3\ SPL/308339597-312231665/ServerC/ClientClion/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/rotem/Code/Assignment3\ SPL/308339597-312231665/ServerC/ClientClion/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/rotem/Code/Assignment3\ SPL/308339597-312231665/ServerC/ClientClion/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="Client/fast">
-				<Option output="/home/rotem/Code/Assignment3 SPL/308339597-312231665/ServerC/Client/cmake-build-debug/Client" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/rotem/Code/Assignment3 SPL/308339597-312231665/ServerC/Client/cmake-build-debug"/>
+			<Target title="BBclient/fast">
+				<Option output="/home/rotem/Code/Assignment3 SPL/308339597-312231665/ServerC/ClientClion/cmake-build-debug/BBclient" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/rotem/Code/Assignment3 SPL/308339597-312231665/ServerC/ClientClion/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="/usr/local/Cellar/boost/1.57.0/include/boost"/>
+					<Add option="-DHAS_BOOST"/>
 					<Add directory="/usr/include/c++/5"/>
 					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
 					<Add directory="/usr/include/c++/5/backward"/>
@@ -79,26 +79,23 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/home/rotem/Code/Assignment3\ SPL/308339597-312231665/ServerC/Client/cmake-build-debug/Makefile&quot;  VERBOSE=1 Client/fast"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/rotem/Code/Assignment3\ SPL/308339597-312231665/ServerC/Client/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/home/rotem/Code/Assignment3\ SPL/308339597-312231665/ServerC/Client/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/home/rotem/Code/Assignment3\ SPL/308339597-312231665/ServerC/Client/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/rotem/Code/Assignment3\ SPL/308339597-312231665/ServerC/ClientClion/cmake-build-debug/Makefile&quot;  VERBOSE=1 BBclient/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/rotem/Code/Assignment3\ SPL/308339597-312231665/ServerC/ClientClion/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/rotem/Code/Assignment3\ SPL/308339597-312231665/ServerC/ClientClion/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/rotem/Code/Assignment3\ SPL/308339597-312231665/ServerC/ClientClion/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/home/rotem/Code/Assignment3 SPL/308339597-312231665/ServerC/Client/include/boost">
-			<Option target="Client"/>
+		<Unit filename="/home/rotem/Code/Assignment3 SPL/308339597-312231665/ServerC/ClientClion/include/connectionHandler.h">
+			<Option target="BBclient"/>
 		</Unit>
-		<Unit filename="/home/rotem/Code/Assignment3 SPL/308339597-312231665/ServerC/Client/include/connectionHandler.h">
-			<Option target="Client"/>
+		<Unit filename="/home/rotem/Code/Assignment3 SPL/308339597-312231665/ServerC/ClientClion/src/MovieClient.cpp">
+			<Option target="BBclient"/>
 		</Unit>
-		<Unit filename="/home/rotem/Code/Assignment3 SPL/308339597-312231665/ServerC/Client/src/connectionHandler.cpp">
-			<Option target="Client"/>
+		<Unit filename="/home/rotem/Code/Assignment3 SPL/308339597-312231665/ServerC/ClientClion/src/connectionHandler.cpp">
+			<Option target="BBclient"/>
 		</Unit>
-		<Unit filename="/home/rotem/Code/Assignment3 SPL/308339597-312231665/ServerC/Client/src/echoClient.cpp">
-			<Option target="Client"/>
-		</Unit>
-		<Unit filename="/home/rotem/Code/Assignment3 SPL/308339597-312231665/ServerC/Client/CMakeLists.txt">
+		<Unit filename="/home/rotem/Code/Assignment3 SPL/308339597-312231665/ServerC/ClientClion/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
 	</Project>

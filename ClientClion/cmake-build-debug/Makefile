@@ -39,19 +39,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /home/rotem/Downloads/ProgramFiles/clion-2017.2.3/bin/cmake/bin/cmake
+CMAKE_COMMAND = "/home/rotem/Downloads/Program Files/clion-2017.2.3/bin/cmake/bin/cmake"
 
 # The command to remove a file.
-RM = /home/rotem/Downloads/ProgramFiles/clion-2017.2.3/bin/cmake/bin/cmake -E remove -f
+RM = "/home/rotem/Downloads/Program Files/clion-2017.2.3/bin/cmake/bin/cmake" -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "/home/rotem/Code/Assignment3 SPL/308339597-312231665/ServerC/Client"
+CMAKE_SOURCE_DIR = "/home/rotem/Code/Assignment3 SPL/308339597-312231665/ServerC/ClientClion"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "/home/rotem/Code/Assignment3 SPL/308339597-312231665/ServerC/Client/cmake-build-debug"
+CMAKE_BINARY_DIR = "/home/rotem/Code/Assignment3 SPL/308339597-312231665/ServerC/ClientClion/cmake-build-debug"
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -59,7 +59,7 @@ CMAKE_BINARY_DIR = "/home/rotem/Code/Assignment3 SPL/308339597-312231665/ServerC
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/home/rotem/Downloads/ProgramFiles/clion-2017.2.3/bin/cmake/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	"/home/rotem/Downloads/Program Files/clion-2017.2.3/bin/cmake/bin/cmake" -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -70,7 +70,7 @@ rebuild_cache/fast: rebuild_cache
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/home/rotem/Downloads/ProgramFiles/clion-2017.2.3/bin/cmake/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+	"/home/rotem/Downloads/Program Files/clion-2017.2.3/bin/cmake/bin/cmake" -E echo No\ interactive\ CMake\ dialog\ available.
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -80,9 +80,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "/home/rotem/Code/Assignment3 SPL/308339597-312231665/ServerC/Client/cmake-build-debug/CMakeFiles" "/home/rotem/Code/Assignment3 SPL/308339597-312231665/ServerC/Client/cmake-build-debug/CMakeFiles/progress.marks"
+	$(CMAKE_COMMAND) -E cmake_progress_start "/home/rotem/Code/Assignment3 SPL/308339597-312231665/ServerC/ClientClion/cmake-build-debug/CMakeFiles" "/home/rotem/Code/Assignment3 SPL/308339597-312231665/ServerC/ClientClion/cmake-build-debug/CMakeFiles/progress.marks"
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start "/home/rotem/Code/Assignment3 SPL/308339597-312231665/ServerC/Client/cmake-build-debug/CMakeFiles" 0
+	$(CMAKE_COMMAND) -E cmake_progress_start "/home/rotem/Code/Assignment3 SPL/308339597-312231665/ServerC/ClientClion/cmake-build-debug/CMakeFiles" 0
 .PHONY : all
 
 # The main clean target
@@ -111,17 +111,44 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named Client
+# Target rules for targets named BBclient
 
 # Build rule for target.
-Client: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 Client
-.PHONY : Client
+BBclient: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 BBclient
+.PHONY : BBclient
 
 # fast build rule for target.
-Client/fast:
-	$(MAKE) -f CMakeFiles/Client.dir/build.make CMakeFiles/Client.dir/build
-.PHONY : Client/fast
+BBclient/fast:
+	$(MAKE) -f CMakeFiles/BBclient.dir/build.make CMakeFiles/BBclient.dir/build
+.PHONY : BBclient/fast
+
+src/MovieClient.o: src/MovieClient.cpp.o
+
+.PHONY : src/MovieClient.o
+
+# target to build an object file
+src/MovieClient.cpp.o:
+	$(MAKE) -f CMakeFiles/BBclient.dir/build.make CMakeFiles/BBclient.dir/src/MovieClient.cpp.o
+.PHONY : src/MovieClient.cpp.o
+
+src/MovieClient.i: src/MovieClient.cpp.i
+
+.PHONY : src/MovieClient.i
+
+# target to preprocess a source file
+src/MovieClient.cpp.i:
+	$(MAKE) -f CMakeFiles/BBclient.dir/build.make CMakeFiles/BBclient.dir/src/MovieClient.cpp.i
+.PHONY : src/MovieClient.cpp.i
+
+src/MovieClient.s: src/MovieClient.cpp.s
+
+.PHONY : src/MovieClient.s
+
+# target to generate assembly for a file
+src/MovieClient.cpp.s:
+	$(MAKE) -f CMakeFiles/BBclient.dir/build.make CMakeFiles/BBclient.dir/src/MovieClient.cpp.s
+.PHONY : src/MovieClient.cpp.s
 
 src/connectionHandler.o: src/connectionHandler.cpp.o
 
@@ -129,7 +156,7 @@ src/connectionHandler.o: src/connectionHandler.cpp.o
 
 # target to build an object file
 src/connectionHandler.cpp.o:
-	$(MAKE) -f CMakeFiles/Client.dir/build.make CMakeFiles/Client.dir/src/connectionHandler.cpp.o
+	$(MAKE) -f CMakeFiles/BBclient.dir/build.make CMakeFiles/BBclient.dir/src/connectionHandler.cpp.o
 .PHONY : src/connectionHandler.cpp.o
 
 src/connectionHandler.i: src/connectionHandler.cpp.i
@@ -138,7 +165,7 @@ src/connectionHandler.i: src/connectionHandler.cpp.i
 
 # target to preprocess a source file
 src/connectionHandler.cpp.i:
-	$(MAKE) -f CMakeFiles/Client.dir/build.make CMakeFiles/Client.dir/src/connectionHandler.cpp.i
+	$(MAKE) -f CMakeFiles/BBclient.dir/build.make CMakeFiles/BBclient.dir/src/connectionHandler.cpp.i
 .PHONY : src/connectionHandler.cpp.i
 
 src/connectionHandler.s: src/connectionHandler.cpp.s
@@ -147,35 +174,8 @@ src/connectionHandler.s: src/connectionHandler.cpp.s
 
 # target to generate assembly for a file
 src/connectionHandler.cpp.s:
-	$(MAKE) -f CMakeFiles/Client.dir/build.make CMakeFiles/Client.dir/src/connectionHandler.cpp.s
+	$(MAKE) -f CMakeFiles/BBclient.dir/build.make CMakeFiles/BBclient.dir/src/connectionHandler.cpp.s
 .PHONY : src/connectionHandler.cpp.s
-
-src/echoClient.o: src/echoClient.cpp.o
-
-.PHONY : src/echoClient.o
-
-# target to build an object file
-src/echoClient.cpp.o:
-	$(MAKE) -f CMakeFiles/Client.dir/build.make CMakeFiles/Client.dir/src/echoClient.cpp.o
-.PHONY : src/echoClient.cpp.o
-
-src/echoClient.i: src/echoClient.cpp.i
-
-.PHONY : src/echoClient.i
-
-# target to preprocess a source file
-src/echoClient.cpp.i:
-	$(MAKE) -f CMakeFiles/Client.dir/build.make CMakeFiles/Client.dir/src/echoClient.cpp.i
-.PHONY : src/echoClient.cpp.i
-
-src/echoClient.s: src/echoClient.cpp.s
-
-.PHONY : src/echoClient.s
-
-# target to generate assembly for a file
-src/echoClient.cpp.s:
-	$(MAKE) -f CMakeFiles/Client.dir/build.make CMakeFiles/Client.dir/src/echoClient.cpp.s
-.PHONY : src/echoClient.cpp.s
 
 # Help Target
 help:
@@ -185,13 +185,13 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
-	@echo "... Client"
+	@echo "... BBclient"
+	@echo "... src/MovieClient.o"
+	@echo "... src/MovieClient.i"
+	@echo "... src/MovieClient.s"
 	@echo "... src/connectionHandler.o"
 	@echo "... src/connectionHandler.i"
 	@echo "... src/connectionHandler.s"
-	@echo "... src/echoClient.o"
-	@echo "... src/echoClient.i"
-	@echo "... src/echoClient.s"
 .PHONY : help
 
 

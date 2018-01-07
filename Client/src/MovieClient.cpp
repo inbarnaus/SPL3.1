@@ -2,7 +2,7 @@
 #include <connectionHandler.h>
 #include <iostream>
 #include <boost/thread.hpp>
-    
+
 class ReadFromKeyboard{
 private:
     int _id;
@@ -69,7 +69,6 @@ public:
         }
     }
 };
-    
 int main(int argc, char *argv[]){
     if (argc < 3) {
         std::cerr << "Usage: " << argv[0] << " host port" << std::endl << std::endl;
@@ -84,6 +83,7 @@ int main(int argc, char *argv[]){
         return 1;
     }
     boost::mutex mutex;
+    std::cerr << "main.86"<< std::endl;
     ReadFromKeyboard task1(1, &mutex, connectionHandler);
     ReadFromSocket task2(2, &mutex, connectionHandler);
     
@@ -93,5 +93,7 @@ int main(int argc, char *argv[]){
     th2.join();    
     return 0;
 }
+    
+
 
 

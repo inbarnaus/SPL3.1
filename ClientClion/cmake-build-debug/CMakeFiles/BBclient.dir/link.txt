@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/BBclient.dir/src/connectionHandler.cpp.o CMakeFiles/BBclient.dir/src/MovieClient.cpp.o  -o BBclient 
