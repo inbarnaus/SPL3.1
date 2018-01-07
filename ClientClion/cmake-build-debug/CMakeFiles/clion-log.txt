@@ -1,0 +1,4 @@
+/home/rotem/Downloads/ProgramFiles/clion-2017.2.3/bin/cmake/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" "/home/rotem/Code/Assignment3 SPL/308339597-312231665/ServerC/Client"
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/rotem/Code/Assignment3 SPL/308339597-312231665/ServerC/Client/cmake-build-debug
