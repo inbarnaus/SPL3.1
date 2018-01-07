@@ -3,25 +3,23 @@ package bgu.spl181.net.impl.movierental;
 import bgu.spl181.net.api.ustbp.User;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MovieUser extends User{
-    @SerializedName("type")
-    private final String type;
     @SerializedName("country")
-    private String country;
+    private List<String> datablock;
     @SerializedName("movies")
     private List<String> movies;
     @SerializedName("balance")
     private int balance;
-    private boolean isAdmin;
+    private String isAdmin;
 
-    public MovieUser(String username, String type, String password, String country, List<String> movies, int balance, boolean isAdmin) {
+    public MovieUser(String username, String password, List<String> datablock, String isAdmin) {
         super(username,password,isAdmin);
-        this.type = type;
-        this.country = country;
-        this.movies = movies;
-        this.balance = balance;
+        this.datablock=datablock;
+        this.movies = new ArrayList<>();
+        this.balance = 0;
     }
 
     public List<String> getMovies() {
@@ -40,11 +38,9 @@ public class MovieUser extends User{
         this.balance = balance;
     }
 
-    public String getCountry() { return country; }
-
     public void addBalance(int amount){ this.balance=balance+amount;}
 
     public boolean isRent(String movie){ return movies.contains(movie); }
 
-    public boolean isAdmin() { return isAdmin; }
+    public boolean isAdmin() { return isAdmin.equals("admin"); }
 }
