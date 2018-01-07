@@ -1,0 +1,30 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/rotem/Code/Assignment3 SPL/308339597-312231665/ServerC/ClientClion/include/connectionHandler.h
+string
+-
+iostream
+-
+boost/asio.hpp
+-
+
+/home/rotem/Code/Assignment3 SPL/308339597-312231665/ServerC/ClientClion/src/MovieClient.cpp
+stdlib.h
+-
+../include/connectionHandler.h
+/home/rotem/Code/Assignment3 SPL/308339597-312231665/ServerC/ClientClion/include/connectionHandler.h
+iostream
+-
+boost/thread.hpp
+-
+
+/home/rotem/Code/Assignment3 SPL/308339597-312231665/ServerC/ClientClion/src/connectionHandler.cpp
+../include/connectionHandler.h
+/home/rotem/Code/Assignment3 SPL/308339597-312231665/ServerC/ClientClion/include/connectionHandler.h
+

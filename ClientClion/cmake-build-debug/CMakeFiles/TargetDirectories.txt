@@ -1,0 +1,3 @@
+/home/rotem/Code/Assignment3 SPL/308339597-312231665/ServerC/ClientClion/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/rotem/Code/Assignment3 SPL/308339597-312231665/ServerC/ClientClion/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/rotem/Code/Assignment3 SPL/308339597-312231665/ServerC/ClientClion/cmake-build-debug/CMakeFiles/BBclient.dir
