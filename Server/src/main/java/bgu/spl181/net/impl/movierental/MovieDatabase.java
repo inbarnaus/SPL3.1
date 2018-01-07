@@ -8,12 +8,16 @@ public class MovieDatabase extends Database<Command>{
     private final String moviesPath;
 
     public MovieDatabase(String usersPath, String moviesPath) {
-        super(usersPath);
+
         this.moviesPath = moviesPath;
     }
 
     @Override
-    public Command handleRequest(Command massege) {
-        throw new NotImplementedException();
-    }
+    public Command handleRequest(Command massege) { throw new NotImplementedException(); }
+
+    public Command rentMovie(String movie){ throw new NotImplementedException(); }
+
+    public boolean movieExist(String movie){ throw new NotImplementedException(); }
+
+    public Movie getMovie(String movie){ throw new NotImplementedException(); }
 }

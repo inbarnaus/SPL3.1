@@ -66,7 +66,7 @@ public class TPCConnections<T> implements Connections<T> {
         return loggedinUsers.containsKey(username);
     }
 
-    private User idToUser(int connectionId){
+    public User idToUser(int connectionId){
         Iterator it = loggedinUsers.entrySet().iterator();
         while(it.hasNext()){
             Map.Entry pair = (Map.Entry)it.next();

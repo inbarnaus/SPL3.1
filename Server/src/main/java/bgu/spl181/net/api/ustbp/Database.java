@@ -5,6 +5,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public abstract class Database<T> {
     private JsonArray users;
+    private RentalServiceSection rentalService;
 
     public void addUser(User user){
         throw new NotImplementedException();

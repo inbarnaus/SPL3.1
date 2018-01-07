@@ -3,6 +3,7 @@ package bgu.spl181.net.api.ustbp.commands;
 import bgu.spl181.net.api.bidi.Connections;
 import bgu.spl181.net.api.ustbp.Command;
 import bgu.spl181.net.api.ustbp.Database;
+import bgu.spl181.net.api.ustbp.RentalServiceSection;
 import bgu.spl181.net.api.ustbp.User;
 
 import java.util.List;
@@ -46,7 +47,7 @@ public class Register extends Command {
     @Override
     public void execute(Database database, Connections connections, int connectionId) {
         User user=database.checkIfExist(username);
-        if(user!=null || connections.isLoggedIn(connectionId)|| !rentalServiceSection.canRent(dataBlock))
+        if(user!=null || connections.isLoggedIn(connectionId))
             connections.send(connectionId, new ERRORCommand("registration failed"));
         else
             connections.send(connectionId, new ACKCommand("registration succeeded"));

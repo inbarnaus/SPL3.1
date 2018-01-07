@@ -19,7 +19,7 @@ public class Login extends Command {
         if(user==null || connections.isLoggedIn(connectionId) || !user.correctPassword(password))
             connections.send(connectionId, new ERRORCommand("login failed"));
         else{//TODO need to check if username is logged in
-            connections.logIn(connectionId);
+            connections.logIn(connectionId,user);
             connections.send(connectionId, new ACKCommand("login succeeded"));
         }
     }
