@@ -1,20 +1,24 @@
 package bgu.spl181.net.impl.movierental;
 
 import bgu.spl181.net.api.MessageEncoderDecoder;
-import bgu.spl181.net.api.ustbp.Command;
-import com.sun.deploy.util.StringUtils;
+import bgu.spl181.net.api.ustbp.commands.*;
 
-import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class CommandEncoderDecoder implements MessageEncoderDecoder<Command> {
+public class CommandEncoderDecoder implements MessageEncoderDecoder<String> {
+
     private byte[] bytes = new byte[1 << 10]; //start with 1k
     private int len = 0;
+
     @Override
-    public Command decodeNextByte(byte nextByte) {
+    public String decodeNextByte(byte nextByte) {
+        //notice that the top 128 ascii characters have the same representation as their utf-8 counterparts
+        //this allow us to do the following comparison
         if (nextByte == '\n') {
-            return popCommand();
+            return popString();
         }
 
         pushByte(nextByte);
@@ -22,8 +26,8 @@ public class CommandEncoderDecoder implements MessageEncoderDecoder<Command> {
     }
 
     @Override
-    public byte[] encode(Command message) {
-        return new byte[0];
+    public byte[] encode(String message) {
+        return (message + "\n").getBytes(); //uses utf8 by default
     }
 
     private void pushByte(byte nextByte) {
@@ -34,14 +38,34 @@ public class CommandEncoderDecoder implements MessageEncoderDecoder<Command> {
         bytes[len++] = nextByte;
     }
 
-    private Command popCommand() {
-        String stringAux= "";
-        try {
-            stringAux  =  new String(bytes, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+    private String popString() {
+        String result = new String(bytes, 0, len, StandardCharsets.UTF_8);
+        len = 0;
+        return result;
+
+        String result = new String(bytes, 0, len, StandardCharsets.UTF_8);
+        len = 0;
+        String[] commandParts=result.split(" ");
+        String commandName=commandParts[0];
+        switch (commandName){
+            case "REGISTER":
+                if(commandParts.length>2){
+                    List<String> datablock=new ArrayList<>();
+                    for(int i=3; i<commandParts.length ;i++){
+                        datablock.add(commandParts[i]);
+                    }
+                    return new Register(commandParts[1],commandParts[2],datablock);
+                }
+                return new Register(commandParts[1],commandParts[2],null);
+            case "LOGIN":
+                return new Login(commandParts[1],commandParts[2]);
+            case "SIGNOUT":
+                return new Signout();
+            case "REQUEST":
+
+                }
+
         }
-        List<String> listAux = Arrays.asList(StringUtils.splitString(stringAux, " "));
-        return Command.generate(listAux);
+        return null;
     }
 }
