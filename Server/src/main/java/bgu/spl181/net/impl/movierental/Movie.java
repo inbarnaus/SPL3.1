@@ -27,8 +27,8 @@ public class Movie {
         this.totalAmount = totalAmount;
     }
 
-    public String getPrice() {
-        return price;
+    public int getPrice() {
+        return Integer.getInteger(price);
     }
 
     public void setPrice(String price) {
@@ -58,4 +58,5 @@ public class Movie {
     public void setTotalAmount(int totalAmount) {
         this.totalAmount = totalAmount;
     }
+
 }
