@@ -48,11 +48,12 @@
       <file leaf-file-name="MovieDatabase.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl181/net/api/ustbp/MovieDatabase.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="437">
-              <caret line="178" column="46" lean-forward="false" selection-start-line="178" selection-start-column="46" selection-end-line="178" selection-end-column="46" />
+            <state relative-caret-position="419">
+              <caret line="177" column="47" lean-forward="false" selection-start-line="177" selection-start-column="47" selection-end-line="177" selection-end-column="47" />
               <folding>
                 <element signature="e#6749#6750#0" expanded="true" />
                 <element signature="e#6787#6788#0" expanded="true" />
+                <element signature="e#6888#6889#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -753,11 +754,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/bgu/spl181/net/api/ustbp/MovieDatabase.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="437">
-          <caret line="178" column="46" lean-forward="false" selection-start-line="178" selection-start-column="46" selection-end-line="178" selection-end-column="46" />
+        <state relative-caret-position="419">
+          <caret line="177" column="47" lean-forward="false" selection-start-line="177" selection-start-column="47" selection-end-line="177" selection-end-column="47" />
           <folding>
             <element signature="e#6749#6750#0" expanded="true" />
             <element signature="e#6787#6788#0" expanded="true" />
+            <element signature="e#6888#6889#0" expanded="true" />
           </folding>
         </state>
       </provider>

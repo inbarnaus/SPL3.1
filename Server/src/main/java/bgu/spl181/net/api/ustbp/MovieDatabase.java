@@ -176,7 +176,6 @@ public class MovieDatabase extends Database<Serializable> {
 
     @Override
     protected User getUserInstance(User user) {
-        System.out.println("??");//TODO DELETE
         return (MovieUser)user;
     }
 }
