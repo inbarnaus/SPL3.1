@@ -11,18 +11,15 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.Serializable;
 
-public class MovieDatabase extends Database<Serializable>{
+public class MovieDatabase extends Database<Command>{
     private Object moviesLock = new Object();
     private final String moviesPath;
     private Gson gson = new GsonBuilder().setPrettyPrinting().create();
-    private int movieCounter;
 
     public MovieDatabase(String usersPath, String moviesPath) {
         super(usersPath);
         this.moviesPath = moviesPath;
-        movieCounter=1;
     }
 
 
@@ -129,8 +126,6 @@ public class MovieDatabase extends Database<Serializable>{
         }
         return temp.toString();
     }
-
-    public int getMovieCounter(){ return movieCounter; }
 
     public boolean removeMovie(String movie){}
     public boolean addMovie(Movie movie){}
