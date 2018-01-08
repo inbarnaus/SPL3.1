@@ -7,25 +7,27 @@ import bgu.spl181.net.api.ustbp.commands.ERRORCommand;
 import bgu.spl181.net.impl.movierental.MovieUser;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-public abstract class USTBP  implements BidiMessagingProtocol<Command>{
+import java.io.Serializable;
 
-    protected Connections<Command> connections;
+public abstract class USTBP  implements BidiMessagingProtocol<Serializable>{
+
+    protected Connections<Serializable> connections;
     protected int connectionId;
-    protected Database<String> database;
+    protected Database<Serializable> database;
     protected String username;
 
-    public USTBP(Database<String> database){
+    public USTBP(Database<Serializable> database){
         this.database=database;
     }
 
     @Override
-    public void start(int connectionId, Connections<Command> connections) {
+    public void start(int connectionId, Connections<Serializable> connections) {
         this.connections = connections;
         this.connectionId=connectionId;
     }
 
-    public void process(String message){
-        String[] commandParts = message.split(" ");
+    public void process(Serializable message){
+        String[] commandParts = ((String)message).split(" ");
         switch (commandParts[0]){
             case "LOGIN":
                 User user=database.checkIfExist(commandParts[1]);

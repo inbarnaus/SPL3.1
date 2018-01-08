@@ -2,14 +2,15 @@ package bgu.spl181.net.api.ustbp;
 
 import com.google.gson.*;
 import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.io.*;
 
 public abstract class Database<T> {
-    private final Object usersLock = new Object();
-    private final String usersPath;
-    private Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    protected final Object usersLock = new Object();
+    protected final String usersPath;
+    protected Gson usersGson = new GsonBuilder().setPrettyPrinting().create();
     public Database(String usersPath){
         this.usersPath=usersPath;
     }
@@ -20,13 +21,20 @@ public abstract class Database<T> {
      */
     public void addUser(User user){
         synchronized (usersLock) {
-            try (Writer writer = new FileWriter(usersPath)) {
-                gson.toJson(gson.toJsonTree(user), writer);
+            try (JsonReader reader = new JsonReader(new FileReader(usersPath));
+                    Writer writer = new FileWriter(usersPath)) {
+                JsonParser parser = new JsonParser();
+                JsonArray jusers = parser.parse(reader).getAsJsonArray();
+                JsonElement juser = usersGson.toJsonTree(getUserInstance(user), getUserClass());
+                jusers.add(juser);
+                usersGson.toJson(juser, writer);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
+    protected abstract Class getUserClass();
+    protected abstract User getUserInstance(User user);
 
     /**
      * Get the movie from the database
@@ -42,7 +50,7 @@ public abstract class Database<T> {
                         ) {
                     JsonObject currjobject = currj.getAsJsonObject();
                     if (currjobject.get("username").getAsString().equals(username)) {
-                        return gson.fromJson(currj, User.class);
+                        return usersGson.fromJson(currj, User.class);
                     }
                 }
             } catch (FileNotFoundException e) {
@@ -68,7 +76,7 @@ public abstract class Database<T> {
                         ) {
                     JsonObject currjobject = currj.getAsJsonObject();
                     if (currjobject.get("username").getAsString().equals(user.getUsername())) {
-                        return gson.fromJson(currj, User.class);
+                        return usersGson.fromJson(currj, User.class);
                     }
                 }
             } catch (FileNotFoundException e) {

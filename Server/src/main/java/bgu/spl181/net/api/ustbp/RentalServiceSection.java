@@ -6,6 +6,7 @@ import bgu.spl181.net.impl.movierental.Movie;
 import bgu.spl181.net.impl.movierental.MovieUser;
 import bgu.spl181.net.srv.TPCConnections;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +14,7 @@ public class RentalServiceSection extends USTBP {
 
     private String commandName;
 
-    public RentalServiceSection(Database<String> database) {
+    public RentalServiceSection(Database<Serializable> database) {
         super(database);
         this.commandName="REQUEST";
     }
@@ -138,11 +139,6 @@ public class RentalServiceSection extends USTBP {
         if(((MovieUser)user).isRent(movie))
             return false;
         return true;
-    }
-
-    @Override
-    public void process(String message) {
-        super.process(message);
     }
 
     @Override
