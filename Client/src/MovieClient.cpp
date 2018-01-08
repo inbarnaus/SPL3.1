@@ -19,8 +19,10 @@ public:
                     std::string line(buf);
                     int len=line.length();
             {
+                std::cout << line << std::endl;
                 boost::mutex::scoped_lock lock(*_mutex);
-                if (!_connectionHandler.sendLine(line)) {
+                std::cout << line << std::endl;
+                if (!_connectionHandler.sendLine(line)) {\
                     std::cout << "Disconnected. Exiting...\n" << std::endl;
                     break;
                 }
@@ -83,7 +85,6 @@ int main(int argc, char *argv[]){
         return 1;
     }
     boost::mutex mutex;
-    std::cerr << "main.86"<< std::endl;
     ReadFromKeyboard task1(1, &mutex, connectionHandler);
     ReadFromSocket task2(2, &mutex, connectionHandler);
     
