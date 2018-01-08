@@ -59,7 +59,7 @@ public class RentalServiceSection extends USTBP {
                     if(!((MovieDatabase)database).movieExist(commandParts[2]))
                         connections.send(connectionId, new ERRORCommand("request info failed"));
                     else
-                        connections.send(connectionId, new ACKCommand(((MovieDatabase)database).movieInfo()));
+                        connections.send(connectionId, new ACKCommand(((MovieDatabase)database).movieInfo(commandParts[2])));
                 }
             case "balance":
                 if(commandParts[2].equals("info")){
@@ -109,7 +109,13 @@ public class RentalServiceSection extends USTBP {
                 else if(!((MovieUser)user).isAdmin() || movie2.getPrice()<1)
                     connections.send(connectionId, new ERRORCommand("request addmovie failed"));
                 else{
-                    Movie newMovie=new Movie();//TODO add movie
+                    List<String> bannedCountries=new ArrayList<>();
+                    for(int i=5; i<commandParts.length;i++)
+                        bannedCountries.add(commandParts[i]);
+                    int amount= Integer.getInteger(commandParts[3]);
+                    Movie newMovie=new Movie(((MovieDatabase)database).getMovieCounter(),
+                            commandParts[2], commandParts[4],bannedCountries, amount, amount);
+                    ((MovieDatabase)database).addMovie(newMovie);
                 }
 
 

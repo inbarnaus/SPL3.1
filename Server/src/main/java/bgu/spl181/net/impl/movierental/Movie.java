@@ -18,8 +18,8 @@ public class Movie {
     @SerializedName("totalAmount")
     private int totalAmount;
 
-    public Movie(String id, String name, String price, List<String> bannedCountries, int availableAmount, int totalAmount) {
-        this.id = id;
+    public Movie(int id, String name, String price, List<String> bannedCountries, int availableAmount, int totalAmount) {
+        this.id = String.valueOf(id);
         this.name = name;
         this.price = price;
         this.bannedCountries = bannedCountries;
