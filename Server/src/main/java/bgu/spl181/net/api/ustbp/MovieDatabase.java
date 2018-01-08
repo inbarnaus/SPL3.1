@@ -1,8 +1,9 @@
-package bgu.spl181.net.impl.movierental;
+package bgu.spl181.net.api.ustbp;
 
 import bgu.spl181.net.api.ustbp.Command;
 import bgu.spl181.net.api.ustbp.Database;
 import bgu.spl181.net.api.ustbp.User;
+import bgu.spl181.net.impl.movierental.Movie;
 import com.google.gson.*;
 import com.google.gson.stream.JsonReader;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
@@ -125,4 +126,7 @@ public class MovieDatabase extends Database<Command>{
         }
         return temp.toString();
     }
+
+    public boolean removeMovie(String movie){}
+    public boolean addMovie(Movie movie){}
 }
