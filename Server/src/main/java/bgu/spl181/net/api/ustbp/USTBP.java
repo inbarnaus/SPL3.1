@@ -9,7 +9,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.io.Serializable;
 
-public abstract class USTBP  implements BidiMessagingProtocol<Serializable>{
+public abstract class USTBP implements BidiMessagingProtocol<Serializable>{
 
     protected Connections<Serializable> connections;
     protected int connectionId;
@@ -27,7 +27,7 @@ public abstract class USTBP  implements BidiMessagingProtocol<Serializable>{
     }
 
     public void process(Serializable message){
-        String[] commandParts = ((String)message).split(" ");
+        String[] commandParts = ((String)message).split("\\s+");
         switch (commandParts[0]){
             case "LOGIN":
                 User user=database.checkIfExist(commandParts[1]);
@@ -37,19 +37,22 @@ public abstract class USTBP  implements BidiMessagingProtocol<Serializable>{
                     connections.logIn(connectionId,user);
                     connections.send(connectionId, new ACKCommand("login succeeded"));
                 }
-
+                break;
             case "SIGNOUT":
                 boolean ans = connections.isLoggedIn(connectionId);
                 if(ans)
                     connections.send(connectionId, new ERRORCommand("signout failed"));
                 else
                     connections.send(connectionId, new ACKCommand("signout succeeded"));
+                break;
 
             case "REGISTER":
-                registerCommand(commandParts);
+                this.registerCommand(commandParts);
+                break;
 
             case "REQUEST":
                 requestCommands(commandParts);
+                break;
         }
     }
 
@@ -57,19 +60,22 @@ public abstract class USTBP  implements BidiMessagingProtocol<Serializable>{
 
     public void registerCommand(String[] commandParts){
         User user1=database.checkIfExist(commandParts[1]);
-        if(commandParts.length<3 || user1!=null || connections.isLoggedIn(connectionId))
+        if(commandParts.length<3 || user1!=null || connections.isLoggedIn(connectionId)) {
             connections.send(connectionId, new ERRORCommand("registration failed"));
+
+        }
         else {
             String[] country=commandParts[3].split("\"\"");
-            User newUser=new MovieUser(commandParts[1], commandParts[2],country[1], "normal");
+            User newUser=new MovieUser(commandParts[1], commandParts[2],country[1], "normal",0);
             database.addUser(newUser);
             connections.send(connectionId, new ACKCommand("registration succeeded"));
+
         }
     }
 
     @Override
     public boolean shouldTerminate() {
-        throw new NotImplementedException();
+        return false;
     }
     public void setUsername(String username){ this.username=username; }
 }

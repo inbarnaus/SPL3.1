@@ -40,6 +40,7 @@ public class RentalServiceSection extends USTBP {
                     else
                         connections.send(connectionId, new ERRORCommand("request rent failed"));
                 }
+                break;
             case "return":
                 String movie=commandParts[1];
                 if(!logedIn || !((MovieUser)user).isRent(movie) || ((MovieDatabase)database).movieExist(movie))
@@ -50,6 +51,7 @@ public class RentalServiceSection extends USTBP {
                     connections.broadcast(new BROADCASTCommand("movie "+ movie +
                             movieInfo.getAvailableAmount()+" "+movieInfo.getPrice()));
                 }
+                break;
             case "info":
                 if(!logedIn)
                     connections.send(connectionId, new ERRORCommand("request info failed"));
@@ -61,10 +63,11 @@ public class RentalServiceSection extends USTBP {
                     else
                         connections.send(connectionId, new ACKCommand(((MovieDatabase)database).movieInfo(commandParts[2])));
                 }
+                break;
             case "balance":
                 if(commandParts[2].equals("info")){
                     if(!logedIn)
-                        connections.send(connectionId, new ERRORCommand("request balance info failed"));
+                        connections.send(connectionId, new ERRORCommand("request balance failed"));
                     else
                         connections.send(connectionId, new ACKCommand("balance "+ ((MovieUser)user).getBalance()));
                 }
@@ -82,6 +85,7 @@ public class RentalServiceSection extends USTBP {
                         }
                     }
                 }
+                break;
             case "remmovie":
                 if(!logedIn && !((MovieUser)user).isAdmin())
                     connections.send(connectionId, new ERRORCommand("request remmovie failed"));
@@ -117,7 +121,7 @@ public class RentalServiceSection extends USTBP {
                             commandParts[2], commandParts[4],bannedCountries, amount, amount);
                     ((MovieDatabase)database).addMovie(newMovie);
                 }
-
+                break;
 
             case "changeprice":
                 Movie movie1=((MovieDatabase) database).getMovie(commandParts[2]);
@@ -131,6 +135,7 @@ public class RentalServiceSection extends USTBP {
                     connections.broadcast(new BROADCASTCommand("movie "+ commandParts[2] +
                             movie1.getAvailableAmount()+" "+movie1.getPrice()));
                 }
+                break;
         }
 
     }
@@ -154,9 +159,10 @@ public class RentalServiceSection extends USTBP {
             connections.send(connectionId, new ERRORCommand("registration failed"));
         else {
             String[] country=commandParts[3].split("\"\"");
-            User newUser=new MovieUser(commandParts[1], commandParts[2],country[1], "normal");
+            User newUser=new MovieUser(commandParts[1], commandParts[2],country[1], "normal",0);
             database.addUser(newUser);
             connections.send(connectionId, new ACKCommand("registration succeeded"));
         }
     }
+
 }

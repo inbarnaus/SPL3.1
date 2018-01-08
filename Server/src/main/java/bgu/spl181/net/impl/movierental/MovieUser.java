@@ -10,24 +10,27 @@ public class MovieUser extends User{
     @SerializedName("country")
     private String country;
     @SerializedName("movies")
-    private List<String> movies;
+    private List<Movie> movies;
     @SerializedName("balance")
     private int balance;
-    private String isAdmin;
 
-    public MovieUser(String username, String password, String country, String isAdmin) {
+    public MovieUser(String username, String password, String country, String isAdmin, int balance) {
         super(username,password,isAdmin);
         this.country=country;
         this.movies = new ArrayList<>();
-        this.balance = 0;
+        this.balance = balance;
     }
 
-    public List<String> getMovies() {
+    public List<Movie> getMovies() {
         return movies;
     }
 
-    public void setMovies(List<String> movies) {
+    public void setMovies(List<Movie> movies) {
         this.movies = movies;
+    }
+
+    public void addMovie(Movie movie) {
+        this.movies.add(movie);
     }
 
     public int getBalance() {
@@ -44,5 +47,7 @@ public class MovieUser extends User{
 
     public boolean isAdmin() { return isAdmin.equals("admin"); }
 
-    public String getCountry() { return country; }
+    public String getCountry() {
+        return country;
+    }
 }

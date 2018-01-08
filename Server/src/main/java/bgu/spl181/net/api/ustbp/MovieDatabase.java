@@ -7,18 +7,24 @@ import bgu.spl181.net.impl.movierental.Movie;
 import bgu.spl181.net.impl.movierental.MovieUser;
 import com.google.gson.*;
 import com.google.gson.stream.JsonReader;
+import netscape.javascript.JSObject;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MovieDatabase extends Database<Serializable>{
     private Object moviesLock = new Object();
     private final String moviesPath;
     private Gson movieGson = new GsonBuilder().setPrettyPrinting().create();
+    private int movieCounter;
 
     public MovieDatabase(String usersPath, String moviesPath) {
         super(usersPath);
         this.moviesPath = moviesPath;
+        this.movieCounter=1;
+
     }
 
 
@@ -125,6 +131,10 @@ public class MovieDatabase extends Database<Serializable>{
         }
         return temp.toString();
     }
+    public int getMovieCounter() {
+        return movieCounter;
+    }
+
 
     public boolean removeMovie(String movie){
         synchronized (moviesLock) {
@@ -156,6 +166,7 @@ public class MovieDatabase extends Database<Serializable>{
                 JsonElement jmovie = movieGson.toJsonTree(movie, Movie.class);
                 jmovies.add(jmovie);
                 movieGson.toJson(jmovies, writer);
+                movieCounter++;
                 return true;
             } catch (IOException e) {
                 e.printStackTrace();
@@ -172,5 +183,24 @@ public class MovieDatabase extends Database<Serializable>{
     @Override
     protected User getUserInstance(User user) {
         return (MovieUser)user;
+    }
+
+    @Override
+    protected User getUserInstance(JsonObject juser) {
+        MovieUser user = new MovieUser(
+                juser.get("username").getAsString(),
+                juser.get("password").getAsString(),
+                juser.get("country").getAsString(),
+                juser.get("type").getAsString(),
+                juser.get("balance").getAsInt()
+        );
+        JsonArray jmovies =juser.get("movies").getAsJsonArray();
+        List<Movie> movies = new ArrayList<>();
+        for (JsonElement currmovie: jmovies
+             ) {
+            movies.add(usersGson.fromJson(currmovie, Movie.class));
+        }
+        user.setMovies(movies);
+        return user;
     }
 }

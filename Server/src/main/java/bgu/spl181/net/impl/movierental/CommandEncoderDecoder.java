@@ -3,12 +3,13 @@ package bgu.spl181.net.impl.movierental;
 import bgu.spl181.net.api.MessageEncoderDecoder;
 import bgu.spl181.net.api.ustbp.commands.*;
 
+import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class CommandEncoderDecoder implements MessageEncoderDecoder<String> {
+public class CommandEncoderDecoder implements MessageEncoderDecoder<Serializable> {
 
     private byte[] bytes = new byte[1 << 10]; //start with 1k
     private int len = 0;
@@ -26,7 +27,7 @@ public class CommandEncoderDecoder implements MessageEncoderDecoder<String> {
     }
 
     @Override
-    public byte[] encode(String message) {
+    public byte[] encode(Serializable message) {
         return (message + "\n").getBytes(); //uses utf8 by default
     }
 
