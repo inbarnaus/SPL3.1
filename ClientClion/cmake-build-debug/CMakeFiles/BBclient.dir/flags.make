@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_FLAGS = -g  
 
-CXX_DEFINES = -DHAS_BOOST
+CXX_DEFINES = 
 
 CXX_INCLUDES = 
 

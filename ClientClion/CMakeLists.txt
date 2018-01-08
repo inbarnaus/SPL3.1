@@ -1,11 +1,11 @@
 cmake_minimum_required(VERSION 3.8)
 project(Client)
 
-FIND_PACKAGE(Boost)
-IF (Boost_FOUND)
-    INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIR})
-    ADD_DEFINITIONS( "-DHAS_BOOST" )
-ENDIF()
+set(BOOST_ROOT "/usr/include")
+FIND_PACKAGE(Boost 1.57.0)
+if (NOT Boost_FOUND)
+    message(FARAL_ERROR "Could not find boost")
+endif()
 set(SOURCE_FILES
         include/connectionHandler.h
         src/connectionHandler.cpp
