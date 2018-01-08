@@ -1,26 +1,34 @@
 package bgu.spl181.net.api.ustbp;
 
+import bgu.spl181.net.api.ustbp.Command;
+import bgu.spl181.net.api.ustbp.Database;
+import bgu.spl181.net.api.ustbp.User;
 import bgu.spl181.net.impl.movierental.Movie;
-import bgu.spl181.net.impl.movierental.MovieUser;
 import com.google.gson.*;
 import com.google.gson.stream.JsonReader;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-import java.io.*;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.Serializable;
 
-public class MovieDatabase extends Database<Serializable> {
+public class MovieDatabase extends Database<Serializable>{
     private Object moviesLock = new Object();
     private final String moviesPath;
-    private Gson moviesGson = new GsonBuilder().setPrettyPrinting().create();
+    private Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    private int movieCounter;
 
     public MovieDatabase(String usersPath, String moviesPath) {
         super(usersPath);
         this.moviesPath = moviesPath;
+        movieCounter=1;
     }
+
+
     public Movie rentMovie(String movie){
         synchronized (moviesLock){
-            try(Writer writer = new FileWriter(moviesPath);
-                    JsonReader reader = new JsonReader(new FileReader(moviesPath))) {
+            try(JsonReader reader = new JsonReader(new FileReader(moviesPath))) {
                 JsonParser parser = new JsonParser();
                 JsonArray jmovies = parser.parse(reader).getAsJsonArray();
                 int i=0;
@@ -28,20 +36,11 @@ public class MovieDatabase extends Database<Serializable> {
                         ) {
                     JsonObject currjobject = currj.getAsJsonObject();
                     if (currjobject.get("id").getAsString().equals(movie)) {
-                        if(currjobject.get("totalAmount").getAsInt()==1) {
+                        if(currjobject.get("totalAmount").getAsInt()==1)
                             jmovies.remove(i);
-                            moviesGson.toJson(jmovies, writer);
-                        }
-                        else {
-                            Movie updated = moviesGson.fromJson(currj, Movie.class);
-                            updated.setTotalAmount(updated.getAvailableAmount()-1);
-                            JsonElement jupdated = moviesGson.toJsonTree(updated);
-                            jmovies.remove(i);
-                            jmovies.add(jupdated);
-                            moviesGson.toJson(jmovies, writer);
-
-                        }
-                        return moviesGson.fromJson(currj, Movie.class);
+                        else
+                            currjobject.addProperty("totalAmount", currjobject.get("totalAmount").getAsInt()-1);
+                        return gson.fromJson(currj, Movie.class);
                     }
                     i++;
                 }
@@ -88,7 +87,7 @@ public class MovieDatabase extends Database<Serializable> {
                     JsonObject currjobject = currj.getAsJsonObject();
                     if (currjobject.get("id").getAsString().equals(movie)) {
                         currjobject.addProperty("totalAmount", currjobject.get("totalAmount").getAsInt()-1);
-                        return moviesGson.fromJson(currj, Movie.class);
+                        return gson.fromJson(currj, Movie.class);
                     }
                     i++;
                 }
@@ -131,51 +130,8 @@ public class MovieDatabase extends Database<Serializable> {
         return temp.toString();
     }
 
-    public boolean removeMovie(String movie){
-        synchronized (moviesLock) {
-            try(JsonReader reader = new JsonReader(new FileReader(moviesPath))) {
-                JsonParser parser = new JsonParser();
-                JsonArray jmovies = parser.parse(reader).getAsJsonArray();
-                for (int i = 0; i <jmovies.size() ; i++) {
-                    if (((JsonObject)jmovies.get(i)).get("name").getAsString().equals(movie)) {
-                        Writer writer = new FileWriter(moviesPath);
-                        jmovies.remove(i);
-                        moviesGson.toJson(jmovies, writer);
-                        return true;
-                    }
-                }
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return false;
-    }
-    public boolean addMovie(Movie movie){
-        synchronized (usersLock) {
-            try (JsonReader reader = new JsonReader(new FileReader(moviesPath));
-                 Writer writer = new FileWriter(moviesPath)) {
-                JsonParser parser = new JsonParser();
-                JsonArray jmovies = parser.parse(reader).getAsJsonArray();
-                JsonElement jmovie = moviesGson.toJsonTree(movie, Movie.class);
-                jmovies.add(jmovie);
-                moviesGson.toJson(jmovies, writer);
-                return true;
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return false;
-    }
+    public int getMovieCounter(){ return movieCounter; }
 
-    @Override
-    protected Class getUserClass() {
-        return MovieUser.class;
-    }
-
-    @Override
-    protected User getUserInstance(User user) {
-        return (MovieUser)user;
-    }
+    public boolean removeMovie(String movie){}
+    public boolean addMovie(Movie movie){}
 }
