@@ -20,6 +20,7 @@ public class BlockingConnectionHandler<T> implements Runnable, ConnectionHandler
     private BufferedInputStream in;
     private BufferedOutputStream out;
     private volatile boolean connected = true;
+    private boolean print =false;
 
 
     public BlockingConnectionHandler(Socket sock, BidiMessagingProtocol<T> protocol, MessageEncoderDecoder<T> reader, Connections<T> connections) {
@@ -37,10 +38,18 @@ public class BlockingConnectionHandler<T> implements Runnable, ConnectionHandler
 
             in = new BufferedInputStream(sock.getInputStream());
             out = new BufferedOutputStream(sock.getOutputStream());
-
+            if(print){
+                System.out.println("Shouldterminate  is "+protocol.shouldTerminate()+" for client: "+sock.getPort());
+            }
             while (!protocol.shouldTerminate() && connected && (read = in.read()) >= 0) {
+                if(print){
+                    System.out.println("Got bytes from client: "+sock.getPort());
+                }
                 T nextMessage = encdec.decodeNextByte((byte) read);
                 if (nextMessage != null) {
+                    if(print){
+                        System.out.println("Got message from client: "+sock.getPort());
+                    }
                     protocol.process(nextMessage);
                 }
             }
@@ -67,5 +76,9 @@ public class BlockingConnectionHandler<T> implements Runnable, ConnectionHandler
     public void close() throws IOException {
         connected = false;
         sock.close();
+    }
+
+    public void setPrint(boolean print) {
+        this.print = print;
     }
 }

@@ -8,8 +8,9 @@ public abstract class User {
     @SerializedName("password")
     private String password;
     @SerializedName("type")
-    private String isAdmin;
+    protected String isAdmin;
 
+    public User(){}
     public User(String username, String password, String admin){
         this.username=username;
         this.isAdmin=admin;
@@ -23,6 +24,6 @@ public abstract class User {
     }
 
     public boolean correctPassword(String password){
-        return this.password==password;
+        return this.password.equals(password);
     }
 }

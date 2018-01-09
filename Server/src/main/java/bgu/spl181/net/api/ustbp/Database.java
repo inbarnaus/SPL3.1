@@ -3,6 +3,7 @@ package bgu.spl181.net.api.ustbp;
 import com.google.gson.*;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.io.*;
@@ -45,12 +46,12 @@ public abstract class Database<T> {
         synchronized (usersLock) {
             try(JsonReader reader = new JsonReader(new FileReader(usersPath))) {
                 JsonParser parser = new JsonParser();
-                JsonArray jusers = parser.parse(reader).getAsJsonArray();
-                for (JsonElement currj : jusers
-                        ) {
+                JsonObject jobj = parser.parse(reader).getAsJsonObject();
+                JsonArray jusers = jobj.getAsJsonArray("users");
+                for (JsonElement currj : jusers) {
                     JsonObject currjobject = currj.getAsJsonObject();
                     if (currjobject.get("username").getAsString().equals(username)) {
-                        return usersGson.fromJson(currj, User.class);
+                        return getUserInstance(currjobject);
                     }
                 }
             } catch (FileNotFoundException e) {
@@ -61,6 +62,7 @@ public abstract class Database<T> {
         }
         return null;
     }
+    protected abstract User getUserInstance(JsonObject juser);
 
     /**
      * Get the movie from the database
