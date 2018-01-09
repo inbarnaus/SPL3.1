@@ -20,16 +20,16 @@ public class RentalServiceSection extends USTBP {
     }
 
     @Override
-    public void requestCommands(String[] commandParts) {
-        String commandName = commandParts[0];
+    public void requestCommands(List<String> commandParts) {
+        String commandName = commandParts.get(0);
         boolean logedIn = connections.isLoggedIn(connectionId);
         User user = ((TPCConnections) connections).idToUser(connectionId);
-        switch (commandParts[1]) {
+        switch (commandParts.get(1)) {
             case "rent":
                 if (!logedIn)
                     connections.send(connectionId, new ERRORCommand("request rent failed"));
                 else {
-                    String movie = commandParts[2];
+                    String movie = commandParts.get(2);
                     boolean canRent = userCanRent(user, movie, database);
                     if (canRent) {
                         Movie rentMovie=((MovieDatabase) database).rentMovie(movie);
@@ -42,7 +42,7 @@ public class RentalServiceSection extends USTBP {
                 }
                 break;
             case "return":
-                String movie=commandParts[1];
+                String movie=commandParts.get(1);
                 if(!logedIn || !((MovieUser)user).isRent(movie) || ((MovieDatabase)database).movieExist(movie))
                     connections.send(connectionId, new ERRORCommand("request return failed"));
                 else{
@@ -55,27 +55,27 @@ public class RentalServiceSection extends USTBP {
             case "info":
                 if(!logedIn)
                     connections.send(connectionId, new ERRORCommand("request info failed"));
-                if(commandParts.length==2)
-                    connections.send(connectionId, new ACKCommand(((MovieDatabase)database).moviesInSystem()));
+                if(commandParts.size()==2)
+                    connections.send(connectionId, new ACKCommand("info "+ ((MovieDatabase)database).moviesInSystem()));
                 else{
-                    if(!((MovieDatabase)database).movieExist(commandParts[2]))
+                    if(!((MovieDatabase)database).movieExist(commandParts.get(2)))
                         connections.send(connectionId, new ERRORCommand("request info failed"));
                     else
-                        connections.send(connectionId, new ACKCommand(((MovieDatabase)database).movieInfo(commandParts[2])));
+                        connections.send(connectionId, new ACKCommand(((MovieDatabase)database).movieInfo(commandParts.get(2))));
                 }
                 break;
             case "balance":
-                if(commandParts[2].equals("info")){
+                if(commandParts.get(2).equals("info")){
                     if(!logedIn)
                         connections.send(connectionId, new ERRORCommand("request balance failed"));
                     else
                         connections.send(connectionId, new ACKCommand("balance "+ ((MovieUser)user).getBalance()));
                 }
-                else if(commandParts[2].equals("add")){
-                    if(!logedIn || commandParts.length<4)
+                else if(commandParts.get(2).equals("add")){
+                    if(!logedIn || commandParts.size()<4)
                         connections.send(connectionId, new ERRORCommand("request balance add failed"));
                     else{
-                        Integer amount=Integer.getInteger(commandParts[3]);
+                        Integer amount=Integer.getInteger(commandParts.get(3));
                         if(amount<1)
                             connections.send(connectionId, new ERRORCommand("request balance add failed"));
                         else {
@@ -90,49 +90,50 @@ public class RentalServiceSection extends USTBP {
                 if(!logedIn && !((MovieUser)user).isAdmin())
                     connections.send(connectionId, new ERRORCommand("request remmovie failed"));
                 else {
-                    if (!((MovieDatabase) database).movieExist(commandParts[2]))
+                    if (!((MovieDatabase) database).movieExist(commandParts.get(2)))
                         connections.send(connectionId, new ERRORCommand("request remmovie failed"));
                     else {
-                        Movie movie1 = ((MovieDatabase) database).getMovie(commandParts[2]);
+                        Movie movie1 = ((MovieDatabase) database).getMovie(commandParts.get(2));
                         if(movie1.getAvailableAmount()!=movie1.getTotalAmount())
                             connections.send(connectionId, new ERRORCommand("request remmovie failed"));
                         else {
-                            if(((MovieDatabase) database).removeMovie(commandParts[2]))
-                                connections.send(connectionId, new ACKCommand("removie "+commandParts[2]+ " success"));
+                            if(((MovieDatabase) database).removeMovie(commandParts.get(2)))
+                                connections.send(connectionId, new ACKCommand("removie "+commandParts.get(2)+ " success"));
                             else
                                 connections.send(connectionId, new ERRORCommand("request remmovie failed"));
                         }
                     }
                 }
+                break;
             case "addmovie":
-                Movie movie2=((MovieDatabase) database).getMovie(commandParts[2]);
+                Movie movie2=((MovieDatabase) database).getMovie(commandParts.get(2));
                 if(!logedIn && !((MovieUser)user).isAdmin())
                     connections.send(connectionId, new ERRORCommand("request addmovie failed"));
-                else if (!((MovieDatabase) database).movieExist(commandParts[2]))
+                else if (!((MovieDatabase) database).movieExist(commandParts.get(2)))
                     connections.send(connectionId, new ERRORCommand("request addmovie failed"));
                 else if(!((MovieUser)user).isAdmin() || movie2.getPrice()<1)
                     connections.send(connectionId, new ERRORCommand("request addmovie failed"));
                 else{
                     List<String> bannedCountries=new ArrayList<>();
-                    for(int i=5; i<commandParts.length;i++)
-                        bannedCountries.add(commandParts[i]);
-                    int amount= Integer.getInteger(commandParts[3]);
+                    for(int i=5; i<commandParts.size();i++)
+                        bannedCountries.add(commandParts.get(i));
+                    int amount= Integer.getInteger(commandParts.get(3));
                     Movie newMovie=new Movie(((MovieDatabase)database).getMovieCounter(),
-                            commandParts[2], commandParts[4],bannedCountries, amount, amount);
+                            commandParts.get(2), commandParts.get(4),bannedCountries, amount, amount);
                     ((MovieDatabase)database).addMovie(newMovie);
                 }
                 break;
 
             case "changeprice":
-                Movie movie1=((MovieDatabase) database).getMovie(commandParts[2]);
-                if(!logedIn || !((MovieDatabase)database).movieExist(commandParts[2]))
+                Movie movie1=((MovieDatabase) database).getMovie(commandParts.get(2));
+                if(!logedIn || !((MovieDatabase)database).movieExist(commandParts.get(2)))
                     connections.send(connectionId, new ERRORCommand("request changeprice failed"));
                 else if(!((MovieUser)user).isAdmin() || movie1.getPrice()<1)
                     connections.send(connectionId, new ERRORCommand("request changeprice failed"));
                 else{
-                    movie1.setPrice(commandParts[3]);
-                    connections.send(connectionId, new ACKCommand("changeprice "+commandParts[2]+" success"));
-                    connections.broadcast(new BROADCASTCommand("movie "+ commandParts[2] +
+                    movie1.setPrice(commandParts.get(3));
+                    connections.send(connectionId, new ACKCommand("changeprice "+commandParts.get(2)+" success"));
+                    connections.broadcast(new BROADCASTCommand("movie "+ commandParts.get(2) +
                             movie1.getAvailableAmount()+" "+movie1.getPrice()));
                 }
                 break;
@@ -153,13 +154,13 @@ public class RentalServiceSection extends USTBP {
     }
 
     @Override
-    public void registerCommand(String[] commandParts) {
-        User user1=database.checkIfExist(commandParts[1]);
-        if(commandParts.length<4 || user1!=null || connections.isLoggedIn(connectionId))
+    public void registerCommand(List<String> commandParts) {
+        User user1=database.checkIfExist(commandParts.get(1));
+        if(commandParts.size()<4 || user1!=null || connections.isLoggedIn(connectionId))
             connections.send(connectionId, new ERRORCommand("registration failed"));
         else {
-            String[] country=commandParts[3].split("\"\"");
-            User newUser=new MovieUser(commandParts[1], commandParts[2],country[1], "normal",0);
+            String[] country=commandParts.get(3).split("\"\"");
+            User newUser=new MovieUser(commandParts.get(1), commandParts.get(2),country[1], "normal",0);
             database.addUser(newUser);
             connections.send(connectionId, new ACKCommand("registration succeeded"));
         }

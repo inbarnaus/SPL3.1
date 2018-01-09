@@ -48,8 +48,7 @@ public abstract class Database<T> {
                 JsonParser parser = new JsonParser();
                 JsonObject jobj = parser.parse(reader).getAsJsonObject();
                 JsonArray jusers = jobj.getAsJsonArray("users");
-                for (JsonElement currj : jusers
-                        ) {
+                for (JsonElement currj : jusers) {
                     JsonObject currjobject = currj.getAsJsonObject();
                     if (currjobject.get("username").getAsString().equals(username)) {
                         return getUserInstance(currjobject);
