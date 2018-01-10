@@ -30,7 +30,7 @@ public abstract class USTBP implements BidiMessagingProtocol<Serializable>{
     }
 
     public void process(Serializable message){
-        String[] moviesParts=((String)message).split("\"");
+        String[] moviesParts=((String)message).split(" ");
         List<String> commandParts=new ArrayList<>();
         for(int i=0; i<moviesParts.length; i++){
             if(moviesParts[i].contains("\""))

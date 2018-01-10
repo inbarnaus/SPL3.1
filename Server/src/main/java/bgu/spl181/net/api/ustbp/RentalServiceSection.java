@@ -29,8 +29,6 @@ public class RentalServiceSection extends USTBP {
                     connections.send(connectionId, new ERRORCommand("request rent failed"));
                 else {
                     String movie = commandParts.get(2);
-                    int i =3;
-                    while (i<commandParts.size()){movie+=" "+commandParts.get(i++);}
                     boolean canRent = userCanRent(user, movie, database);
                     if (canRent) {
                         Movie rentMovie=((MovieDatabase) database).rentMovie(movie);
@@ -43,7 +41,7 @@ public class RentalServiceSection extends USTBP {
                 }
                 break;
             case "return":
-                String movie=commandParts.get(1);
+                String movie=commandParts.get(2);
                 if(!logedIn || !((MovieUser)user).isRent(movie) || ((MovieDatabase)database).movieExist(movie))
                     connections.send(connectionId, new ERRORCommand("request return failed"));
                 else{
@@ -60,8 +58,6 @@ public class RentalServiceSection extends USTBP {
                     connections.send(connectionId, new ACKCommand("info "+ ((MovieDatabase)database).moviesInSystem()));
                 else{
                     String movieName = commandParts.get(2);
-                    int i =3;
-                    while (i<commandParts.size()){movieName+=" "+commandParts.get(i++);}
                     if(!((MovieDatabase)database).movieExist(movieName))
                         connections.send(connectionId, new ERRORCommand("request info failed"));
                     else
