@@ -32,6 +32,9 @@ public abstract class User {
         return this.password.equals(password);
     }
 
+    public String getPassword() {
+        return password;
+    }
 
     public void setPassword(String password) {
         this.password = password;

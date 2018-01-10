@@ -1,17 +1,6 @@
 {
   "movies": [
     {
-      "id": "1",
-      "name": "The Godfather",
-      "price": "25",
-      "bannedCountries": [
-        "united kingdom",
-        "italy"
-      ],
-      "availableAmount": "1",
-      "totalAmount": "2"
-    },
-    {
       "id": "2",
       "name": "The Pursuit Of Happyness",
       "price": "14",
@@ -38,6 +27,17 @@
       ],
       "availableAmount": 3,
       "totalAmount": 4
+    },
+    {
+      "id": "1",
+      "name": "The Godfather",
+      "price": "25",
+      "bannedCountries": [
+        "united kingdom",
+        "italy"
+      ],
+      "availableAmount": 3,
+      "totalAmount": 2
     }
   ]
 }

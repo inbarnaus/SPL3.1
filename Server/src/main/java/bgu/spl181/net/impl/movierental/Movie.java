@@ -65,6 +65,10 @@ public class Movie {
 
     public boolean isBanned(String country){ return bannedCountries.contains(country); }
 
+    public String getName() {
+        return name;
+    }
+
     @Override
     public String toString() {
         String sBannedCountries = "";
