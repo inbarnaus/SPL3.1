@@ -32,7 +32,13 @@ public class RentalServiceSection extends USTBP {
                         Movie rentMovie=((MovieDatabase) database).rentMovie(movie);
                         if(rentMovie==null)
                             connections.send(connectionId, new ERRORCommand("request rent failed"));
-                        else connections.send(connectionId, new ACKCommand("rent "+movie+" success"));
+                        else {
+                            ((MovieUser)user).decBalance(rentMovie.getPrice());
+                            rentMovie.decAvailableAmount();
+                            connections.send(connectionId, new ACKCommand("rent \""+movie+"\" success"));
+                            connections.broadcast(new BROADCASTCommand("movie \""+movie+"\" "
+                                    +rentMovie.getAvailableAmount()+" "+rentMovie.getPrice()));
+                        }
                     }
                     else
                         connections.send(connectionId, new ERRORCommand("request rent failed"));
