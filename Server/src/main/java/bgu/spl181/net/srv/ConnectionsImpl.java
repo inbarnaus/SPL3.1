@@ -9,7 +9,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class TPCConnections<T> implements Connections<T> {
+public class ConnectionsImpl<T> implements Connections<T> {
     private Map<Integer, ConnectionHandler<T>> handlers = new ConcurrentHashMap<>();
     private Map<Integer, ConnectionHandler<T>> loggedin = new ConcurrentHashMap<>();
     private Map<String, Integer> loggedinUsers = new ConcurrentHashMap<>();

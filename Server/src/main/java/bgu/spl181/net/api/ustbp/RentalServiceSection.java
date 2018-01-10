@@ -1,10 +1,8 @@
 package bgu.spl181.net.api.ustbp;
 
-import bgu.spl181.net.api.bidi.Connections;
 import bgu.spl181.net.api.ustbp.commands.*;
 import bgu.spl181.net.impl.movierental.Movie;
 import bgu.spl181.net.impl.movierental.MovieUser;
-import bgu.spl181.net.srv.TPCConnections;
 
 import java.io.Serializable;
 import java.util.ArrayList;
