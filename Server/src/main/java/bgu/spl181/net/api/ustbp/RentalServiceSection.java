@@ -1,10 +1,8 @@
 package bgu.spl181.net.api.ustbp;
 
-import bgu.spl181.net.api.bidi.Connections;
 import bgu.spl181.net.api.ustbp.commands.*;
 import bgu.spl181.net.impl.movierental.Movie;
 import bgu.spl181.net.impl.movierental.MovieUser;
-import bgu.spl181.net.srv.TPCConnections;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -29,8 +27,6 @@ public class RentalServiceSection extends USTBP {
                     connections.send(connectionId, new ERRORCommand("request rent failed"));
                 else {
                     String movie = commandParts.get(2);
-                    int i =3;
-                    while (i<commandParts.size()){movie+=" "+commandParts.get(i++);}
                     boolean canRent = userCanRent(user, movie, database);
                     if (canRent) {
                         Movie rentMovie=((MovieDatabase) database).rentMovie(movie);

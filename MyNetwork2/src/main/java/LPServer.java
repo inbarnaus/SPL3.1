@@ -29,7 +29,8 @@ class LPServer {
             System.out.println("Failed to accept...");
             System.exit(1);
         }
-        
+
+        out.println("heyheyheyhey");
         System.out.println("Accepted connection from client!");
         System.out.println("The client is from: " + lpClientSocket.getInetAddress() + ":" + lpClientSocket.getPort());
         
@@ -50,6 +51,12 @@ class LPServer {
 
             while ((msg1 = userIn.readLine())!= null)
             {
+                out.println(msg1);
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 out.println(msg1);
                 break;
             }

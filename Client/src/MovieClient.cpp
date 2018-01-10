@@ -51,9 +51,7 @@ public:
             // Get back an answer: by using the expected number of bytes (len bytes + newline delimiter)
             // We could also use: connectionHandler.getline(answer) and then get the answer without the newline char at the end
             {
-                boost::mutex::scoped_lock lock(*_mutex);
                 while(answer==""){
-                    _m_cond->wait(lock);
                     if (!_connectionHandler.getLine(answer)) {
                         std::cout << "Disconnected. Exiting...\n" << std::endl;
                         _m_cond->notify_all();

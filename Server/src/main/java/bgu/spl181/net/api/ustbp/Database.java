@@ -1,5 +1,6 @@
 package bgu.spl181.net.api.ustbp;
 
+import bgu.spl181.net.impl.movierental.MovieUser;
 import com.google.gson.*;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
@@ -23,13 +24,12 @@ public abstract class Database<T> {
     public void addUser(User user){
         synchronized (usersLock) {
             JsonArray jusers = getJsonArray(usersPath, "users");
-            JsonElement juser = usersGson.toJsonTree(getUserInstance(user), getUserClass());
+            JsonElement juser = getUserJson(user, usersGson);
             jusers.add(juser);
             updateJson(usersPath, jusers, "users", usersGson);
         }
     }
-    protected abstract Class getUserClass();
-    protected abstract User getUserInstance(User user);
+    protected abstract JsonElement getUserJson(User user, Gson gson);
 
     /**
      * Get the movie from the database

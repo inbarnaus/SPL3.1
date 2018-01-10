@@ -3,6 +3,7 @@ package bgu.spl181.net.api.ustbp;
 import com.google.gson.annotations.SerializedName;
 
 public abstract class User {
+
     @SerializedName("username")
     private String username;
     @SerializedName("password")
@@ -29,5 +30,21 @@ public abstract class User {
 
     public boolean correctPassword(String password){
         return this.password.equals(password);
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getIsAdmin() {
+        return isAdmin;
+    }
+
+    public void setIsAdmin(String isAdmin) {
+        this.isAdmin = isAdmin;
     }
 }
