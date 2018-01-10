@@ -16,7 +16,6 @@ public class TPCConnections<T> implements Connections<T> {
 
     @Override
     public boolean send(int connectionId, T msg) {
-        System.out.println("bla");
         if(handlers.containsKey(connectionId)){
             handlers.get(connectionId).send(msg);
             return true;

@@ -47,6 +47,10 @@ public class Movie {
         return availableAmount;
     }
 
+    public void decAvailableAmount() {
+        availableAmount--;
+    }
+
     public void setAvailableAmount(int availableAmount) {
         this.availableAmount = availableAmount;
     }

@@ -50,4 +50,6 @@ public class MovieUser extends User{
     public String getCountry() {
         return country;
     }
+
+    public void decBalance(int price){ this.balance=balance-price; }
 }

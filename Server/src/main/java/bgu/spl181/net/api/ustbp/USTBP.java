@@ -30,23 +30,36 @@ public abstract class USTBP implements BidiMessagingProtocol<Serializable>{
     }
 
     public void process(Serializable message){
-        String[] moviesParts=((String)message).split("\"");
+        String[] message1=((String)message).split("\r");
+        String[] moviesParts=((String)message1[0]).split(" ");
         List<String> commandParts=new ArrayList<>();
-        for(int i=0; i<moviesParts.length; i++){
-            if(moviesParts[i].contains("\""))
-                commandParts.add(moviesParts[i]);
-            else{
-                String[] s=moviesParts[i].split(" ");
-                for(int j=0;j<s.length;j++)
-                    commandParts.add(s[j]);
+        int index=0;
+        while(index!=moviesParts.length){
+            if(moviesParts[index].contains("\"")) {
+                if(index!=moviesParts.length-1) {
+                    String s = moviesParts[index].substring(1);
+                    index++;
+                    while (index != moviesParts.length - 1 && !moviesParts[index].contains("\"")) {
+                        s = s + " " + moviesParts[index];
+                        index++;
+                    }
+                    s = s + " " + moviesParts[index].substring(0,moviesParts[index].length()-1);
+                    commandParts.add(s);
+                    index++;
+                }
+            }
+            else {
+                commandParts.add(moviesParts[index]);
+                index++;
             }
         }
 
         switch (commandParts.get(0)){
             case "LOGIN":
                 User user=database.checkIfExist(commandParts.get(1));
-                if(commandParts.size()<3 || user==null || connections.isLoggedIn(connectionId) || !user.correctPassword(commandParts.get(2)))
+                if(commandParts.size()<3 || user==null || connections.isLoggedIn(connectionId) || !user.correctPassword(commandParts.get(2))) {
                     connections.send(connectionId, new ERRORCommand("login failed"));
+                }
                 else{//TODO need to check if username is logged in
                     connections.logIn(connectionId,user);
                     this.user =user;

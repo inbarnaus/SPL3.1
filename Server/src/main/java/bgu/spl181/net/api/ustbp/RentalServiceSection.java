@@ -36,14 +36,20 @@ public class RentalServiceSection extends USTBP {
                         Movie rentMovie=((MovieDatabase) database).rentMovie(movie);
                         if(rentMovie==null)
                             connections.send(connectionId, new ERRORCommand("request rent failed"));
-                        else connections.send(connectionId, new ACKCommand("rent "+movie+" success"));
+                        else {
+                            ((MovieUser)user).decBalance(rentMovie.getPrice());
+                            rentMovie.decAvailableAmount();
+                            connections.send(connectionId, new ACKCommand("rent \""+movie+"\" success"));
+                            connections.broadcast(new BROADCASTCommand("movie \""+movie+"\" "
+                                    +rentMovie.getAvailableAmount()+" "+rentMovie.getPrice()));
+                        }
                     }
                     else
                         connections.send(connectionId, new ERRORCommand("request rent failed"));
                 }
                 break;
             case "return":
-                String movie=commandParts.get(1);
+                String movie=commandParts.get(2);
                 if(!logedIn || !((MovieUser)user).isRent(movie) || ((MovieDatabase)database).movieExist(movie))
                     connections.send(connectionId, new ERRORCommand("request return failed"));
                 else{
@@ -60,8 +66,6 @@ public class RentalServiceSection extends USTBP {
                     connections.send(connectionId, new ACKCommand("info "+ ((MovieDatabase)database).moviesInSystem()));
                 else{
                     String movieName = commandParts.get(2);
-                    int i =3;
-                    while (i<commandParts.size()){movieName+=" "+commandParts.get(i++);}
                     if(!((MovieDatabase)database).movieExist(movieName))
                         connections.send(connectionId, new ERRORCommand("request info failed"));
                     else
@@ -163,7 +167,7 @@ public class RentalServiceSection extends USTBP {
         if(commandParts.size()<4 || user1!=null || connections.isLoggedIn(connectionId))
             connections.send(connectionId, new ERRORCommand("registration failed"));
         else {
-            String[] country=commandParts.get(3).split("\"\"");
+            String[] country=commandParts.get(3).split("\"");
             user=new MovieUser(commandParts.get(1), commandParts.get(2),country[1], "normal",0);
             database.addUser(user);
             connections.send(connectionId, new ACKCommand("registration succeeded"));
