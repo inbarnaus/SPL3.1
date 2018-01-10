@@ -28,7 +28,7 @@ public class Movie {
     }
 
     public int getPrice() {
-        return Integer.getInteger(price);
+        return Integer.parseInt(price);
     }
 
     public void setPrice(String price) {
@@ -71,7 +71,7 @@ public class Movie {
             }
         }
         return "\"" + name + "\"" +
-                " " + id+
+                " " + availableAmount+
                 " " + price +
                 " " + sBannedCountries;
     }

@@ -42,9 +42,6 @@ public class BlockingConnectionHandler<T> implements Runnable, ConnectionHandler
                 System.out.println("Shouldterminate  is "+protocol.shouldTerminate()+" for client: "+sock.getPort());
             }
             while (!protocol.shouldTerminate() && connected && (read = in.read()) >= 0) {
-                if(print){
-                    System.out.println("Got bytes from client: "+sock.getPort());
-                }
                 T nextMessage = encdec.decodeNextByte((byte) read);
                 if (nextMessage != null) {
                     if(print){

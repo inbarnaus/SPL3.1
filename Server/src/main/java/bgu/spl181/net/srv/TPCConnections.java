@@ -12,7 +12,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class TPCConnections<T> implements Connections<T> {
     private Map<Integer, ConnectionHandler<T>> handlers = new ConcurrentHashMap<>();
     private Map<Integer, ConnectionHandler<T>> loggedin = new ConcurrentHashMap<>();
-    private Map<User, Integer> loggedinUsers = new ConcurrentHashMap<>();
+    private Map<String, Integer> loggedinUsers = new ConcurrentHashMap<>();
 
     @Override
     public boolean send(int connectionId, T msg) {
@@ -53,7 +53,7 @@ public class TPCConnections<T> implements Connections<T> {
     @Override
     public void logIn(int connectionId, User user) {
         loggedin.put(connectionId, handlers.get(connectionId));
-        loggedinUsers.put(user,connectionId);
+        loggedinUsers.put(user.getUsername(),connectionId);
 
     }
 
@@ -67,12 +67,12 @@ public class TPCConnections<T> implements Connections<T> {
         return loggedinUsers.containsKey(username);
     }
 
-    public User idToUser(int connectionId){
+    public String idToUser(int connectionId){
         Iterator it = loggedinUsers.entrySet().iterator();
         while(it.hasNext()){
             Map.Entry pair = (Map.Entry)it.next();
             if((int)pair.getValue()==connectionId){
-                return (User)pair.getKey();
+                return (String)pair.getKey();
             }
         }
         return null;

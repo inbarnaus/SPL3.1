@@ -1,0 +1,4 @@
+REGISTER shlomi tryingagain country="Russia"
+REQUEST balance info
+LOGIN shlomi mahpass
+LOGIN shlomi cocacola

@@ -23,13 +23,14 @@ public class RentalServiceSection extends USTBP {
     public void requestCommands(List<String> commandParts) {
         String commandName = commandParts.get(0);
         boolean logedIn = connections.isLoggedIn(connectionId);
-        User user = ((TPCConnections) connections).idToUser(connectionId);
         switch (commandParts.get(1)) {
             case "rent":
                 if (!logedIn)
                     connections.send(connectionId, new ERRORCommand("request rent failed"));
                 else {
                     String movie = commandParts.get(2);
+                    int i =3;
+                    while (i<commandParts.size()){movie+=" "+commandParts.get(i++);}
                     boolean canRent = userCanRent(user, movie, database);
                     if (canRent) {
                         Movie rentMovie=((MovieDatabase) database).rentMovie(movie);
@@ -58,10 +59,13 @@ public class RentalServiceSection extends USTBP {
                 if(commandParts.size()==2)
                     connections.send(connectionId, new ACKCommand("info "+ ((MovieDatabase)database).moviesInSystem()));
                 else{
-                    if(!((MovieDatabase)database).movieExist(commandParts.get(2)))
+                    String movieName = commandParts.get(2);
+                    int i =3;
+                    while (i<commandParts.size()){movieName+=" "+commandParts.get(i++);}
+                    if(!((MovieDatabase)database).movieExist(movieName))
                         connections.send(connectionId, new ERRORCommand("request info failed"));
                     else
-                        connections.send(connectionId, new ACKCommand(((MovieDatabase)database).movieInfo(commandParts.get(2))));
+                        connections.send(connectionId, new ACKCommand(((MovieDatabase)database).movieInfo(movieName)));
                 }
                 break;
             case "balance":
@@ -160,8 +164,8 @@ public class RentalServiceSection extends USTBP {
             connections.send(connectionId, new ERRORCommand("registration failed"));
         else {
             String[] country=commandParts.get(3).split("\"\"");
-            User newUser=new MovieUser(commandParts.get(1), commandParts.get(2),country[1], "normal",0);
-            database.addUser(newUser);
+            user=new MovieUser(commandParts.get(1), commandParts.get(2),country[1], "normal",0);
+            database.addUser(user);
             connections.send(connectionId, new ACKCommand("registration succeeded"));
         }
     }
