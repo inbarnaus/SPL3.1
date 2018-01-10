@@ -33,8 +33,6 @@ public class RentalServiceSection extends USTBP {
                         if(rentMovie==null)
                             connections.send(connectionId, new ERRORCommand("request rent failed"));
                         else {
-                            ((MovieUser)user).decBalance(rentMovie.getPrice());
-                            rentMovie.decAvailableAmount();
                             connections.send(connectionId, new ACKCommand("rent \""+movie+"\" success"));
                             connections.broadcast(new BROADCASTCommand("movie \""+movie+"\" "
                                     +rentMovie.getAvailableAmount()+" "+rentMovie.getPrice()));

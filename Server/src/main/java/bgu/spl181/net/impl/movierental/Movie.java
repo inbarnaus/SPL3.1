@@ -70,7 +70,7 @@ public class Movie {
         String sBannedCountries = "";
         for (int i = 0; i <bannedCountries.size() ; i++) {
             sBannedCountries+="\""+bannedCountries.get(i)+"\"";
-            if(i+1==bannedCountries.size()){
+            if(i+1!=bannedCountries.size()){
                 sBannedCountries+=" ";
             }
         }
