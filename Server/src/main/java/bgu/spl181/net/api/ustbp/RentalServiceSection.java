@@ -46,12 +46,13 @@ public class RentalServiceSection extends USTBP {
                 break;
             case "return":
                 String movie=commandParts.get(2);
-                if(!logedIn || !((MovieUser)user).isRent(movie) || ((MovieDatabase)database).movieExist(movie))
+                if(!logedIn || !((MovieUser)user).isRent(movie) || !((MovieDatabase)database).movieExist(movie))
                     connections.send(connectionId, new ERRORCommand("request return failed"));
                 else{
                     Movie movieInfo=((MovieDatabase)database).getMovie(movie);
+                    ((MovieDatabase)database).returnMovie(movieInfo);
                     connections.send(connectionId, new ACKCommand("request "+ movie+" "+"success"));
-                    connections.broadcast(new BROADCASTCommand("movie "+ movie +
+                    connections.broadcast(new BROADCASTCommand("movie "+ movie +" "+
                             movieInfo.getAvailableAmount()+" "+movieInfo.getPrice()));
                 }
                 break;

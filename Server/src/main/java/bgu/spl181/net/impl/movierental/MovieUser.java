@@ -43,7 +43,15 @@ public class MovieUser extends User{
 
     public void addBalance(int amount){ this.balance=balance+amount;}
 
-    public boolean isRent(String movie){ return movies.contains(movie); }
+    public boolean isRent(String movie){
+        for (Movie currMovie: movies
+             ) {
+            if (currMovie.getName().equals(movie)){
+                return true;
+            }
+        }
+        return false;
+    }
 
     public boolean isAdmin() { return isAdmin.equals("admin"); }
 
