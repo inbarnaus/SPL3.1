@@ -122,16 +122,6 @@ public class MovieDatabase extends Database<Serializable>{
 
 
     @Override
-    protected Class getUserClass() {
-        return MovieUser.class;
-    }
-
-    @Override
-    protected User getUserInstance(User user) {
-        return (MovieUser)user;
-    }
-
-    @Override
     protected User getUserInstance(JsonObject juser) {
         MovieUser user = new MovieUser(
                 juser.get("username").getAsString(),
@@ -143,10 +133,45 @@ public class MovieDatabase extends Database<Serializable>{
         JsonArray jmovies =juser.get("movies").getAsJsonArray();
         List<Movie> movies = new ArrayList<>();
         for (JsonElement currmovie: jmovies
-             ) {
+                ) {
             movies.add(usersGson.fromJson(currmovie, Movie.class));
         }
         user.setMovies(movies);
         return user;
     }
+
+    @Override
+    protected JsonElement getUserJson(User user, Gson gson) {
+
+        return gson.toJsonTree(
+                new JsonUser(
+                        user.getUsername(),
+                        user.getPassword(),
+                        user.getIsAdmin(),
+                        ((MovieUser)user).getMovies(),
+                        ((MovieUser)user).getBalance()
+                ),
+                JsonUser.class);
+    }
+
+    /**
+     * Designated only tp parse correctly the json
+     */
+    private class JsonUser{
+        private String username;
+        private String password;
+        private String country;
+        private List<Movie> movies;
+        private int balance;
+
+        public JsonUser(String username, String password, String country, List<Movie> movies, int balance) {
+            this.username = username;
+            this.password = password;
+            this.country = country;
+            this.movies = movies;
+            this.balance = balance;
+        }
+    }
 }
+
+

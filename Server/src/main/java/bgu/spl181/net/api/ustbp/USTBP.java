@@ -77,14 +77,12 @@ public abstract class USTBP implements BidiMessagingProtocol<Serializable>{
         User user1=database.checkIfExist(commandParts.get(1));
         if(commandParts.size()<3 || user1!=null || connections.isLoggedIn(connectionId)) {
             connections.send(connectionId, new ERRORCommand("registration failed"));
-
         }
         else {
             String[] country=commandParts.get(3).split("\"\"");
             user=new MovieUser(commandParts.get(1), commandParts.get(2),country[1], "normal",0);
             database.addUser(user);
             connections.send(connectionId, new ACKCommand("registration succeeded"));
-
         }
     }
 

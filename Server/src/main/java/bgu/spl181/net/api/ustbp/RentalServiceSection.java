@@ -157,7 +157,7 @@ public class RentalServiceSection extends USTBP {
         if(commandParts.size()<4 || user1!=null || connections.isLoggedIn(connectionId))
             connections.send(connectionId, new ERRORCommand("registration failed"));
         else {
-            String[] country=commandParts.get(3).split("\"\"");
+            String[] country=commandParts.get(3).split("\"");
             user=new MovieUser(commandParts.get(1), commandParts.get(2),country[1], "normal",0);
             database.addUser(user);
             connections.send(connectionId, new ACKCommand("registration succeeded"));
