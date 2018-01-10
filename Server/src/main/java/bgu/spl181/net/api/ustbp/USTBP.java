@@ -17,6 +17,7 @@ public abstract class USTBP implements BidiMessagingProtocol<Serializable>{
     protected int connectionId;
     protected Database<Serializable> database;
     protected String username;
+    protected User user;
 
     public USTBP(Database<Serializable> database){
         this.database=database;
@@ -48,6 +49,7 @@ public abstract class USTBP implements BidiMessagingProtocol<Serializable>{
                     connections.send(connectionId, new ERRORCommand("login failed"));
                 else{//TODO need to check if username is logged in
                     connections.logIn(connectionId,user);
+                    this.user =user;
                     connections.send(connectionId, new ACKCommand("login succeeded"));
                 }
                 break;
@@ -79,8 +81,8 @@ public abstract class USTBP implements BidiMessagingProtocol<Serializable>{
         }
         else {
             String[] country=commandParts.get(3).split("\"\"");
-            User newUser=new MovieUser(commandParts.get(1), commandParts.get(2),country[1], "normal",0);
-            database.addUser(newUser);
+            user=new MovieUser(commandParts.get(1), commandParts.get(2),country[1], "normal",0);
+            database.addUser(user);
             connections.send(connectionId, new ACKCommand("registration succeeded"));
 
         }

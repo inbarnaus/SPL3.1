@@ -6,10 +6,11 @@
 class ReadFromKeyboard{
 private:
     int _id;
+    boost::condition_variable* _m_cond;
     boost::mutex * _mutex;
     ConnectionHandler &_connectionHandler;
 public:
-    ReadFromKeyboard (int id, boost::mutex* mutex, ConnectionHandler &connectionHandler) : _id(id), _mutex(mutex), _connectionHandler(connectionHandler){}
+    ReadFromKeyboard (int id, boost::condition_variable* m_cond ,  boost::mutex* mutex, ConnectionHandler &connectionHandler) : _id(id), _m_cond(m_cond),_mutex(mutex), _connectionHandler(connectionHandler){}
     
     void run(){
         while (1) {
@@ -17,18 +18,15 @@ public:
             char buf[bufsize];
             std::cin.getline(buf, bufsize);
                     std::string line(buf);
-                    int len=line.length();
             {
-                std::cout << line << std::endl;
                 boost::mutex::scoped_lock lock(*_mutex);
-                std::cout << line << std::endl;
                 if (!_connectionHandler.sendLine(line)) {\
                     std::cout << "Disconnected. Exiting...\n" << std::endl;
+                    _m_cond->notify_all();
                     break;
                 }
+                _m_cond->notify_all();
             }
-                    // connectionHandler.sendLine(line) appends '\n' to the message. Therefor we send len+1 bytes.
-            std::cout << "Sent " << len+1 << " bytes to server" << std::endl;
         }
     }
 };
@@ -36,10 +34,11 @@ public:
 class ReadFromSocket{
 private:
     int _id;
+    boost::condition_variable* _m_cond;
     boost::mutex * _mutex;
     ConnectionHandler &_connectionHandler;
 public:
-    ReadFromSocket (int id, boost::mutex* mutex, ConnectionHandler &connectionHandler) : _id(id), _mutex(mutex), _connectionHandler(connectionHandler) {}
+    ReadFromSocket (int id, boost::condition_variable* m_cond ,  boost::mutex* mutex, ConnectionHandler &connectionHandler) : _id(id), _m_cond(m_cond),_mutex(mutex), _connectionHandler(connectionHandler){}
     
     void run(){
         while (1) {
@@ -48,14 +47,19 @@ public:
             // 1. Read a fixed number of characters
             // 2. Read a line (up to the newline character using the getline() buffered reader
             // 3. Read up to the null character
-            std::string answer;
+            std::string answer="";
             // Get back an answer: by using the expected number of bytes (len bytes + newline delimiter)
             // We could also use: connectionHandler.getline(answer) and then get the answer without the newline char at the end
             {
                 boost::mutex::scoped_lock lock(*_mutex);
-                if (!_connectionHandler.getLine(answer)) {
-                    std::cout << "Disconnected. Exiting...\n" << std::endl;
-                    break;
+                while(answer==""){
+                    _m_cond->wait(lock);
+                    if (!_connectionHandler.getLine(answer)) {
+                        std::cout << "Disconnected. Exiting...\n" << std::endl;
+                        _m_cond->notify_all();
+                        break;       
+                    }
+                    _m_cond->notify_all();
                 }
             }
             
@@ -63,9 +67,10 @@ public:
             // A C string must end with a 0 char delimiter.  When we filled the answer buffer from the socket
             // we filled up to the \n char - we must make sure now that a 0 char is also present. So we truncate last character.
             answer.resize(len-1);
-            std::cout << "Reply: " << answer << " " << len << " bytes " << std::endl << std::endl;
-            if (answer == "bye") {
+            std::cout << answer <<std::endl;
+            if (answer == "ACK signout succeeded") {
                 std::cout << "Exiting...\n" << std::endl;
+                _m_cond->notify_all();
                 break;
             }
         }
@@ -84,12 +89,13 @@ int main(int argc, char *argv[]){
         std::cerr << "Cannot connect to " << host << ":" << port << std::endl;
         return 1;
     }
+    boost::condition_variable m_cond;
     boost::mutex mutex;
-    ReadFromKeyboard task1(1, &mutex, connectionHandler);
-    ReadFromSocket task2(2, &mutex, connectionHandler);
+    ReadFromKeyboard task1(1, &m_cond , &mutex, connectionHandler);
+    ReadFromSocket task2(2,  &m_cond , &mutex, connectionHandler);
     
-    boost::thread th1(&ReadFromKeyboard::run, &task1); 
-    boost::thread th2(&ReadFromSocket::run, &task2); 
+    boost::thread th1(&ReadFromKeyboard::run, &task1);
+    boost::thread th2(&ReadFromSocket::run, &task2);
     th1.join();
     th2.join();    
     return 0;

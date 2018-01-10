@@ -22,16 +22,10 @@ public abstract class Database<T> {
      */
     public void addUser(User user){
         synchronized (usersLock) {
-            try (JsonReader reader = new JsonReader(new FileReader(usersPath));
-                    Writer writer = new FileWriter(usersPath)) {
-                JsonParser parser = new JsonParser();
-                JsonArray jusers = parser.parse(reader).getAsJsonArray();
-                JsonElement juser = usersGson.toJsonTree(getUserInstance(user), getUserClass());
-                jusers.add(juser);
-                usersGson.toJson(juser, writer);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            JsonArray jusers = getJsonArray(usersPath, "users");
+            JsonElement juser = usersGson.toJsonTree(getUserInstance(user), getUserClass());
+            jusers.add(juser);
+            updateJson(usersPath, jusers, "users", usersGson);
         }
     }
     protected abstract Class getUserClass();
@@ -43,7 +37,16 @@ public abstract class Database<T> {
      * @return Movie object. null if not exists
      */
     public User checkIfExist(String username){
+        User ans = null;
         synchronized (usersLock) {
+            JsonArray jusers = getJsonArray(usersPath, "users");
+            for (JsonElement currj : jusers) {
+                JsonObject currjobject = currj.getAsJsonObject();
+                if (currjobject.get("username").getAsString().equals(username)) {
+                    ans =  getUserInstance(currjobject);
+                }
+            }
+            /*
             try(JsonReader reader = new JsonReader(new FileReader(usersPath))) {
                 JsonParser parser = new JsonParser();
                 JsonObject jobj = parser.parse(reader).getAsJsonObject();
@@ -59,8 +62,9 @@ public abstract class Database<T> {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            */
         }
-        return null;
+        return ans;
     }
     protected abstract User getUserInstance(JsonObject juser);
 
@@ -88,5 +92,25 @@ public abstract class Database<T> {
             }
         }
         return null;
+    }
+    protected JsonArray getJsonArray(String path, String propname){
+        JsonArray ans = null;
+        try (JsonReader reader = new JsonReader(new FileReader(path));) {
+            JsonParser parser = new JsonParser();
+            JsonObject jobj  = parser.parse(reader).getAsJsonObject();
+            ans = jobj.getAsJsonArray(propname);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return ans;
+    }
+    protected void updateJson(String path, JsonArray jarray, String propname, Gson gson){
+        try (Writer writer = new FileWriter(path)) {
+            JsonObject jobj = new JsonObject();
+            jobj.add(propname, jarray);
+            gson.toJson(jobj, writer);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

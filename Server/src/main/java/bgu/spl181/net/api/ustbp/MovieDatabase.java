@@ -29,92 +29,52 @@ public class MovieDatabase extends Database<Serializable>{
 
 
     public Movie rentMovie(String movie){
+        Movie rented = null;
         synchronized (moviesLock){
-            try(JsonReader reader = new JsonReader(new FileReader(moviesPath))) {
-                JsonParser parser = new JsonParser();
-                JsonArray jmovies = parser.parse(reader).getAsJsonArray();
-                int i=0;
-                for (JsonElement currj : jmovies
-                        ) {
-                    JsonObject currjobject = currj.getAsJsonObject();
-                    if (currjobject.get("id").getAsString().equals(movie)) {
-                        if(currjobject.get("totalAmount").getAsInt()==1)
-                            jmovies.remove(i);
-                        else
-                            currjobject.addProperty("totalAmount", currjobject.get("totalAmount").getAsInt()-1);
-                        return movieGson.fromJson(currj, Movie.class);
-                    }
-                    i++;
+            if(!((rented=getMovie(movie))==null)){
+                if(!(rented.getAvailableAmount()==0)){
+                    removeMovie(movie);
+                    rented.setAvailableAmount(rented.getAvailableAmount()-1);
+                    addMovie(rented);
+                }else{
+                    rented=null;
                 }
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
             }
         }
-        return null;
+        return rented;
     }
 
     public boolean movieExist(String movie){
         synchronized (moviesLock){
-            try(JsonReader reader = new JsonReader(new FileReader(moviesPath))) {
-                JsonParser parser = new JsonParser();
-                JsonObject jmovies = parser.parse(reader).getAsJsonObject();
-                JsonArray jusers = jmovies.getAsJsonArray("movies");
-                for (JsonElement currj : jusers) {
-                    JsonObject currjobject = currj.getAsJsonObject();
-                    if (currjobject.get("name").getAsString().equals(movie))
-                        return true;
-                }
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            return getMovie(movie)!=null;
         }
-        return false;
-    }
-
-    public Movie getMovie(String movie){
-        synchronized (moviesLock){
-            try(JsonReader reader = new JsonReader(new FileReader(moviesPath))) {
-                JsonParser parser = new JsonParser();
-                JsonArray jmovies = parser.parse(reader).getAsJsonArray();
-                int i=0;
-                for (JsonElement currj : jmovies) {
-                    JsonObject currjobject = currj.getAsJsonObject();
-                    if (currjobject.get("id").getAsString().equals(movie)) {
-                        currjobject.addProperty("totalAmount", currjobject.get("totalAmount").getAsInt()-1);
-                        return movieGson.fromJson(currj, Movie.class);
-                    }
-                    i++;
-                }
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return null;
     }
 
     public String moviesInSystem(){
         String ans = "";
         synchronized (moviesLock){
-            try(JsonReader reader = new JsonReader(new FileReader(moviesPath))) {
-                JsonParser parser = new JsonParser();
-                JsonObject jmovies = parser.parse(reader).getAsJsonObject();
-                JsonArray jusers = jmovies.getAsJsonArray("movies");
-                for (JsonElement currj : jusers) {
-                    JsonObject currjobject = currj.getAsJsonObject();
-                    ans+="\"";
-                    ans+=currjobject.get("name").getAsString();
-                    ans+="\" ";
+            JsonArray jmovies = getJsonArray(moviesPath, "movies");
+            for (JsonElement currj : jmovies) {
+                JsonObject currjobject = currj.getAsJsonObject();
+                ans+="\"";
+                ans+=currjobject.get("name").getAsString();
+                ans+="\" ";
+            }
+        }
+        return ans;
+    }
+
+    public Movie getMovie(String movie){
+        Movie  ans= null;
+        synchronized (moviesLock){
+            int i=0;
+            JsonArray jmovies = getJsonArray(moviesPath, "movies");
+            for (JsonElement currj : jmovies) {
+                JsonObject currjobject = currj.getAsJsonObject();
+                if (currjobject.get("name").getAsString().equals(movie)) {
+                    ans =  movieGson.fromJson(currj, Movie.class);
                 }
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
+                i++;
             }
         }
         return ans;
@@ -127,49 +87,39 @@ public class MovieDatabase extends Database<Serializable>{
         }
         return temp.toString();
     }
+
     public int getMovieCounter() {
         return movieCounter;
     }
 
 
-    public boolean removeMovie(String movie){
+    public boolean removeMovie(String movie) {
+        boolean ans = false;
         synchronized (moviesLock) {
-            try(JsonReader reader = new JsonReader(new FileReader(moviesPath))) {
-                JsonParser parser = new JsonParser();
-                JsonArray jmovies = parser.parse(reader).getAsJsonArray();
-                for (int i = 0; i <jmovies.size() ; i++) {
-                    if (((JsonObject)jmovies.get(i)).get("name").getAsString().equals(movie)) {
-                        Writer writer = new FileWriter(moviesPath);
-                        jmovies.remove(i);
-                        movieGson.toJson(jmovies, writer);
-                        return true;
-                    }
+            JsonArray jmovies = getJsonArray(moviesPath, "movies");
+            for (int i = 0; i < jmovies.size(); i++) {
+                if (((JsonObject) jmovies.get(i)).get("name").getAsString().equals(movie)) {
+                    jmovies.remove(i);
+                    movieCounter--;//TODO ASK INBAR
+                    updateJson(moviesPath, jmovies, "movies", movieGson);
+                    ans =  true;
                 }
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
             }
         }
-        return false;
+        return ans;
     }
+
     public boolean addMovie(Movie movie){
         synchronized (usersLock) {
-            try (JsonReader reader = new JsonReader(new FileReader(moviesPath));
-                 Writer writer = new FileWriter(moviesPath)) {
-                JsonParser parser = new JsonParser();
-                JsonArray jmovies = parser.parse(reader).getAsJsonArray();
-                JsonElement jmovie = movieGson.toJsonTree(movie, Movie.class);
-                jmovies.add(jmovie);
-                movieGson.toJson(jmovies, writer);
-                movieCounter++;
-                return true;
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            JsonArray jmovies = getJsonArray(moviesPath, "movies");
+            JsonElement jmovie = movieGson.toJsonTree(movie, Movie.class);
+            jmovies.add(jmovie);
+            movieCounter++;//TODO ASK INBAR
+            updateJson(moviesPath, jmovies, "movies", movieGson);
+            return true;
         }
-        return false;
     }
+
 
     @Override
     protected Class getUserClass() {
