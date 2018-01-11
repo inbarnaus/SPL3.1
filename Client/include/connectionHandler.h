@@ -44,6 +44,9 @@ public:
     // Send a message to the remote host.
     // Returns false in case connection is closed before all the data is sent.
     bool sendFrameAscii(const std::string& frame, char delimiter);
+
+    //Return's true while the socket is connected
+    bool isconnected();
 	
     // Close down the connection properly.
     void close();

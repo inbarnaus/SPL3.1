@@ -106,6 +106,7 @@ public class Reactor<T> implements Server<T> {
                 clientChan,
                 this,
                 connections);
+        connections.add(clientChan.socket().getPort(), handler);
         clientChan.register(selector, SelectionKey.OP_READ, handler);
     }
 

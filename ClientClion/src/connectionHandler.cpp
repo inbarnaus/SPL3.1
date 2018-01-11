@@ -1,5 +1,6 @@
 #include <connectionHandler.h>
- 
+#include "../include/connectionHandler.h"
+
 using boost::asio::ip::tcp;
 
 using std::cin;
@@ -41,6 +42,7 @@ bool ConnectionHandler::getBytes(char bytes[], unsigned int bytesToRead) {
 		if(error)
 			throw boost::system::system_error(error);
     } catch (std::exception& e) {
+        std::cerr << "44" << std::endl;
         std::cerr << "recv failed (Error: " << e.what() << ')' << std::endl;
         return false;
     }
@@ -57,6 +59,7 @@ bool ConnectionHandler::sendBytes(const char bytes[], int bytesToWrite) {
 		if(error)
 			throw boost::system::system_error(error);
     } catch (std::exception& e) {
+        std::cerr << "61" << std::endl;
         std::cerr << "recv failed (Error: " << e.what() << ')' << std::endl;
         return false;
     }
@@ -77,10 +80,13 @@ bool ConnectionHandler::getFrameAscii(std::string& frame, char delimiter) {
     // Notice that the null character is not appended to the frame string.
     try {
 		do{
-			getBytes(&ch, 1);
+			if(!getBytes(&ch, 1)){
+                            return false;
+                        }
             frame.append(1, ch);
         }while (delimiter != ch);
     } catch (std::exception& e) {
+        std::cerr << "81"<< std::endl;
         std::cerr << "recv failed (Error: " << e.what() << ')' << std::endl;
         return false;
     }
@@ -92,12 +98,16 @@ bool ConnectionHandler::sendFrameAscii(const std::string& frame, char delimiter)
 	if(!result) return false;
 	return sendBytes(&delimiter,1);
 }
+bool ConnectionHandler::isconnected() {
+    return socket_.is_open();
+}
  
 // Close down the connection properly.
 void ConnectionHandler::close() {
     try{
         socket_.close();
     } catch (...) {
+        std::cerr << "104"<< std::endl;
         std::cout << "closing failed: connection already closed" << std::endl;
     }
 }
