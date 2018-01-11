@@ -13,6 +13,7 @@ private:
 	const short port_;
 	boost::asio::io_service io_service_;   // Provides core I/O functionality
 	tcp::socket socket_; 
+        int isConnected;
  
 public:
     ConnectionHandler(std::string host, short port);
@@ -46,7 +47,7 @@ public:
     bool sendFrameAscii(const std::string& frame, char delimiter);
 
     //Return's true while the socket is connected
-    bool isconnected();
+    int isconnected();
 	
     // Close down the connection properly.
     void close();

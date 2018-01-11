@@ -66,7 +66,7 @@ public abstract class USTBP implements BidiMessagingProtocol<Serializable>{
                 if(commandParts.size()<3 || user==null || connections.isLoggedIn(connectionId) || !user.correctPassword(commandParts.get(2))) {
                     connections.send(connectionId, new ERRORCommand("login failed"));
                 }
-                else{//TODO need to check if username is logged in
+                else{
                     connections.logIn(connectionId,user);
                     this.user =user;
                     connections.send(connectionId, new ACKCommand("login succeeded"));
@@ -77,9 +77,9 @@ public abstract class USTBP implements BidiMessagingProtocol<Serializable>{
                 if(!ans)
                     connections.send(connectionId, new ERRORCommand("signout failed"));
                 else
-                    connections.disconnect(connectionId);
                     signedOut=true;
                     connections.send(connectionId, new ACKCommand("signout succeeded"));
+                    connections.disconnect(connectionId);
                 break;
 
             case "REGISTER":

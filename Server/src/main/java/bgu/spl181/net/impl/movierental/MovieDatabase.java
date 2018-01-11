@@ -1,4 +1,4 @@
-package bgu.spl181.net.api.ustbp;
+package bgu.spl181.net.impl.movierental;
 
 import bgu.spl181.net.api.ustbp.Command;
 import bgu.spl181.net.api.ustbp.Database;

@@ -1,8 +1,9 @@
-package bgu.spl181.net.api.ustbp;
+package bgu.spl181.net.impl.movierental;
 
+import bgu.spl181.net.api.ustbp.Database;
+import bgu.spl181.net.api.ustbp.USTBP;
+import bgu.spl181.net.api.ustbp.User;
 import bgu.spl181.net.api.ustbp.commands.*;
-import bgu.spl181.net.impl.movierental.Movie;
-import bgu.spl181.net.impl.movierental.MovieUser;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -29,7 +30,7 @@ public class RentalServiceSection extends USTBP {
                     String movie = commandParts.get(2);
                     boolean canRent = userCanRent(user, movie, database);
                     if (canRent) {
-                        Movie rentMovie=((MovieDatabase) database).rentMovie(movie);
+                        Movie rentMovie=((MovieDatabase) database).rentMovie(movie, user);
                         if(rentMovie==null)
                             connections.send(connectionId, new ERRORCommand("request rent failed"));
                         else {
@@ -48,15 +49,9 @@ public class RentalServiceSection extends USTBP {
                     connections.send(connectionId, new ERRORCommand("request return failed"));
                 else{
                     Movie movieInfo=((MovieDatabase)database).getMovie(movie);
-<<<<<<< HEAD
                     ((MovieDatabase)database).returnMovie(movieInfo, (MovieUser)user);
-                    connections.send(connectionId, new ACKCommand("request "+ movie+" "+"success"));
-                    connections.broadcast(new BROADCASTCommand("movie "+ movie +" "+
-=======
-                    ((MovieDatabase)database).returnMovie(movieInfo);
                     connections.send(connectionId, new ACKCommand("request \""+ movie+"\" "+"success"));
                     connections.broadcast(new BROADCASTCommand("movie \""+ movie +"\" "+
->>>>>>> origin/master
                             movieInfo.getAvailableAmount()+" "+movieInfo.getPrice()));
                 }
                 break;
