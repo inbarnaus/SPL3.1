@@ -44,7 +44,7 @@ public abstract class BaseServer<T> implements Server<T> {
                         encoderdecoderFactory.get(),
                         connections
                 );
-                handler.setPrint(true);
+                handler.setPrint(false);
                 connections.add(sock.getPort(), handler);
                 execute(handler);
 

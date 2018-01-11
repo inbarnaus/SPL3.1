@@ -32,6 +32,10 @@ public abstract class User {
         return this.password.equals(password);
     }
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> bf26b796c8134bde3c769449b75e8942b4a9da6f
     public void setPassword(String password) {
         this.password = password;
     }

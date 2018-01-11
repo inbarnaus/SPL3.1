@@ -49,8 +49,8 @@ public class RentalServiceSection extends USTBP {
                 else{
                     Movie movieInfo=((MovieDatabase)database).getMovie(movie);
                     ((MovieDatabase)database).returnMovie(movieInfo);
-                    connections.send(connectionId, new ACKCommand("request "+ movie+" "+"success"));
-                    connections.broadcast(new BROADCASTCommand("movie "+ movie +" "+
+                    connections.send(connectionId, new ACKCommand("request \""+ movie+"\" "+"success"));
+                    connections.broadcast(new BROADCASTCommand("movie \""+ movie +"\" "+
                             movieInfo.getAvailableAmount()+" "+movieInfo.getPrice()));
                 }
                 break;
