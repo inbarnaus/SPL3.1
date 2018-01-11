@@ -31,6 +31,10 @@ public class Movie {
         return Integer.parseInt(price);
     }
 
+    public String getId() {
+        return id;
+    }
+
     public void setPrice(String price) {
         this.price = price;
     }

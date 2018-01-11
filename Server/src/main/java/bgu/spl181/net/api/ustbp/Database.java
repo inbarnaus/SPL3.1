@@ -29,6 +29,41 @@ public abstract class Database<T> {
             updateJson(usersPath, jusers, "users", usersGson);
         }
     }
+
+    protected void removeUser(User user){
+        synchronized (usersLock){
+            JsonArray jusers = getJsonArray(usersPath, "users");
+            int index = 0;
+            for (JsonElement currjuser:jusers
+                 ) {
+
+                if(((JsonObject)currjuser).get("username").equals(user.getUsername())){
+                    jusers.remove(index);
+                    break;
+                }
+                index++;
+            }
+            updateJson(usersPath,jusers, "users", usersGson);
+        }
+    }
+
+    protected void updateUser(User user){
+        synchronized (usersLock){
+            JsonArray jusers = getJsonArray(usersPath, "users");
+            int index = 0;
+            for (JsonElement currjuser:jusers
+                    ) {
+
+                if(((JsonObject)currjuser).get("username").getAsString().equals(user.getUsername())){
+                    jusers.remove(index);
+                    break;
+                }
+                index++;
+            }
+            jusers.add(getUserJson(user,usersGson));
+            updateJson(usersPath,jusers, "users", usersGson);
+        }
+    }
     protected abstract JsonElement getUserJson(User user, Gson gson);
 
     /**
@@ -46,23 +81,6 @@ public abstract class Database<T> {
                     ans =  getUserInstance(currjobject);
                 }
             }
-            /*
-            try(JsonReader reader = new JsonReader(new FileReader(usersPath))) {
-                JsonParser parser = new JsonParser();
-                JsonObject jobj = parser.parse(reader).getAsJsonObject();
-                JsonArray jusers = jobj.getAsJsonArray("users");
-                for (JsonElement currj : jusers) {
-                    JsonObject currjobject = currj.getAsJsonObject();
-                    if (currjobject.get("username").getAsString().equals(username)) {
-                        return getUserInstance(currjobject);
-                    }
-                }
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            */
         }
         return ans;
     }

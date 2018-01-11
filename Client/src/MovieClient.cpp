@@ -13,14 +13,14 @@ public:
     ReadFromKeyboard (int id, boost::condition_variable* m_cond ,  boost::mutex* mutex, ConnectionHandler &connectionHandler) : _id(id), _m_cond(m_cond),_mutex(mutex), _connectionHandler(connectionHandler){}
     
     void run(){
-        while (1) {
+        while (_connectionHandler.isconnected()) {
             const short bufsize = 1024;
             char buf[bufsize];
             std::cin.getline(buf, bufsize);
                     std::string line(buf);
             {
                 boost::mutex::scoped_lock lock(*_mutex);
-                if (!_connectionHandler.sendLine(line)) {\
+                if (_connectionHandler.isconnected()&&!_connectionHandler.sendLine(line)) {\
                     std::cout << "Disconnected. Exiting...\n" << std::endl;
                     _m_cond->notify_all();
                     break;
@@ -41,7 +41,7 @@ public:
     ReadFromSocket (int id, boost::condition_variable* m_cond ,  boost::mutex* mutex, ConnectionHandler &connectionHandler) : _id(id), _m_cond(m_cond),_mutex(mutex), _connectionHandler(connectionHandler){}
     
     void run(){
-        while (1) {
+        while (_connectionHandler.isconnected()) {
             int len;
             // We can use one of three options to read data from the server:
             // 1. Read a fixed number of characters
@@ -68,8 +68,8 @@ public:
             std::cout << answer <<std::endl;
             if (answer == "ACK signout succeeded") {
                 std::cout << "Exiting...\n" << std::endl;
+                _connectionHandler.close();
                 _m_cond->notify_all();
-                break;
             }
         }
     }

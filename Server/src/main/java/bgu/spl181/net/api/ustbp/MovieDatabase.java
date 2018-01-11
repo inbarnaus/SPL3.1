@@ -27,8 +27,14 @@ public class MovieDatabase extends Database<Serializable>{
 
     }
 
-
-    public Movie rentMovie(String movie){
+    /**
+     * Removes the movie from the movies data
+     * Adds the movie to the user movies
+     * @param movie
+     * @param user
+     * @return
+     */
+    public Movie rentMovie(String movie, User user){
         Movie rented = null;
         synchronized (moviesLock){
             if(!((rented=getMovie(movie))==null)){
@@ -41,13 +47,23 @@ public class MovieDatabase extends Database<Serializable>{
                 }
             }
         }
+        synchronized (usersLock){
+            if (rented != null) {
+                ((MovieUser)user).addMovie(rented);
+                ((MovieUser)user).decBalance(rented.getPrice());
+                updateUser(user);
+            }
+        }
+
         return rented;
     }
 
     /**
-     * Updates the state of the movie and the user that return the movie
+     * Adds the movie to the movies data
+     * Removes the movie from the user movies
      * @param movie
      * @param user
+     * @return
      */
     public void returnMovie(Movie movie, MovieUser user){
         synchronized (moviesLock){
@@ -56,7 +72,8 @@ public class MovieDatabase extends Database<Serializable>{
             addMovie(movie);
         }
         synchronized (usersLock){
-
+            ((MovieUser)user).removeMovie(movie.getName());
+            updateUser(user);
         }
     }
 
@@ -156,14 +173,21 @@ public class MovieDatabase extends Database<Serializable>{
         return user;
     }
 
+    /**
+     * Gets json element of user
+     * @param user
+     * @param gson
+     * @return
+     */
     @Override
     protected JsonElement getUserJson(User user, Gson gson) {
 
         return gson.toJsonTree(
                 new JsonUser(
                         user.getUsername(),
-                        user.getPassword(),
                         user.getIsAdmin(),
+                        user.getPassword(),
+                        ((MovieUser)user).getCountry(),
                         ((MovieUser)user).getMovies(),
                         ((MovieUser)user).getBalance()
                 ),
@@ -175,17 +199,40 @@ public class MovieDatabase extends Database<Serializable>{
      */
     private class JsonUser{
         private String username;
+        private String type;
         private String password;
         private String country;
-        private List<Movie> movies;
+        private List<JsonMovieOfClient> movies;
         private int balance;
 
-        public JsonUser(String username, String password, String country, List<Movie> movies, int balance) {
+        public JsonUser(String username,String type , String password, String country, List<Movie> movies, int balance) {
             this.username = username;
+            this.type=type;
             this.password = password;
             this.country = country;
-            this.movies = movies;
+            this.movies = new ArrayList<>();
+            for (Movie currmovie: movies
+                 ) {
+                this.movies.add(
+                        new JsonMovieOfClient(
+                                currmovie.getId(),
+                                currmovie.getName()
+                        )
+                );
+            }
             this.balance = balance;
+        }
+    }
+    /**
+     * Designated only tp parse correctly the json
+     */
+    private class JsonMovieOfClient{
+        private String id;
+        private String name;
+
+        public JsonMovieOfClient(String id, String name) {
+            this.id = id;
+            this.name = name;
         }
     }
 }

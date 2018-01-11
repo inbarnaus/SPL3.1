@@ -18,6 +18,7 @@ public abstract class USTBP implements BidiMessagingProtocol<Serializable>{
     protected Database<Serializable> database;
     protected String username;
     protected User user;
+    private volatile boolean signedOut;
 
     public USTBP(Database<Serializable> database){
         this.database=database;
@@ -27,6 +28,7 @@ public abstract class USTBP implements BidiMessagingProtocol<Serializable>{
     public void start(int connectionId, Connections<Serializable> connections) {
         this.connections = connections;
         this.connectionId=connectionId;
+        signedOut = false;
     }
 
     public void process(Serializable message){
@@ -72,9 +74,11 @@ public abstract class USTBP implements BidiMessagingProtocol<Serializable>{
                 break;
             case "SIGNOUT":
                 boolean ans = connections.isLoggedIn(connectionId);
-                if(ans)
+                if(!ans)
                     connections.send(connectionId, new ERRORCommand("signout failed"));
                 else
+                    connections.disconnect(connectionId);
+                    signedOut=true;
                     connections.send(connectionId, new ACKCommand("signout succeeded"));
                 break;
 
@@ -106,8 +110,8 @@ public abstract class USTBP implements BidiMessagingProtocol<Serializable>{
     }
 
     @Override
-    public boolean shouldTerminate() {
-        return false;
+    public boolean shouldTerminate(){
+        return signedOut ;
     }
     public void setUsername(String username){ this.username=username; }
 }

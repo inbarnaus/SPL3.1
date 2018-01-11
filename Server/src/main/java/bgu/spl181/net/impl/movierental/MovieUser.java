@@ -61,5 +61,13 @@ public class MovieUser extends User{
 
     public void decBalance(int price){ this.balance=balance-price; }
 
-    public void removeMovie(Movie movie){movies.remove(movie);}
+    public void removeMovie(String movie){
+        for (Movie currmovie: movies
+             ) {
+            if(currmovie.getName().equals(movie)){
+                movies.remove(currmovie);
+                break;
+            }
+        }
+    }
 }

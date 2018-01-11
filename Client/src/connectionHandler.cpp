@@ -1,5 +1,6 @@
 #include <connectionHandler.h>
- 
+#include "../include/connectionHandler.h"
+
 using boost::asio::ip::tcp;
 
 using std::cin;
@@ -96,6 +97,9 @@ bool ConnectionHandler::sendFrameAscii(const std::string& frame, char delimiter)
 	bool result=sendBytes(frame.c_str(),frame.length());
 	if(!result) return false;
 	return sendBytes(&delimiter,1);
+}
+bool ConnectionHandler::isconnected() {
+    return socket_.is_open();
 }
  
 // Close down the connection properly.
