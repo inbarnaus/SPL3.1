@@ -33,24 +33,28 @@ public abstract class USTBP implements BidiMessagingProtocol<Serializable>{
         String[] message1=((String)message).split("\r");
         String[] moviesParts=((String)message1[0]).split(" ");
         List<String> commandParts=new ArrayList<>();
-        int index=0;
-        while(index!=moviesParts.length){
-            if(moviesParts[index].contains("\"")) {
-                if(index!=moviesParts.length-1) {
-                    String s = moviesParts[index].substring(1);
-                    index++;
-                    while (index != moviesParts.length - 1 && !moviesParts[index].contains("\"")) {
-                        s = s + " " + moviesParts[index];
+        if(((String) message).contains("country"))
+            for(int i=0;i<moviesParts.length;i++)
+                commandParts.add(moviesParts[i]);
+        else {
+            int index = 0;
+            while (index != moviesParts.length) {
+                if (moviesParts[index].contains("\"")) {
+                    if (index != moviesParts.length - 1) {
+                        String s = moviesParts[index].substring(1);
+                        index++;
+                        while (index != moviesParts.length - 1 && !moviesParts[index].contains("\"")) {
+                            s = s + " " + moviesParts[index];
+                            index++;
+                        }
+                        s = s + " " + moviesParts[index].substring(0, moviesParts[index].length() - 1);
+                        commandParts.add(s);
                         index++;
                     }
-                    s = s + " " + moviesParts[index].substring(0,moviesParts[index].length()-1);
-                    commandParts.add(s);
+                } else {
+                    commandParts.add(moviesParts[index]);
                     index++;
                 }
-            }
-            else {
-                commandParts.add(moviesParts[index]);
-                index++;
             }
         }
 
