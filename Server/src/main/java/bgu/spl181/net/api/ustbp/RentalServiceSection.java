@@ -50,7 +50,7 @@ public class RentalServiceSection extends USTBP {
                     connections.send(connectionId, new ERRORCommand("request return failed"));
                 else{
                     Movie movieInfo=((MovieDatabase)database).getMovie(movie);
-                    ((MovieDatabase)database).returnMovie(movieInfo);
+                    ((MovieDatabase)database).returnMovie(movieInfo, (MovieUser)user);
                     connections.send(connectionId, new ACKCommand("request "+ movie+" "+"success"));
                     connections.broadcast(new BROADCASTCommand("movie "+ movie +" "+
                             movieInfo.getAvailableAmount()+" "+movieInfo.getPrice()));

@@ -44,11 +44,19 @@ public class MovieDatabase extends Database<Serializable>{
         return rented;
     }
 
-    public void returnMovie(Movie movie){
+    /**
+     * Updates the state of the movie and the user that return the movie
+     * @param movie
+     * @param user
+     */
+    public void returnMovie(Movie movie, MovieUser user){
         synchronized (moviesLock){
             removeMovie(movie.getName());
             movie.setAvailableAmount(movie.getAvailableAmount()+1);
             addMovie(movie);
+        }
+        synchronized (usersLock){
+
         }
     }
 

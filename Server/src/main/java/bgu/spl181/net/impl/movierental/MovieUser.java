@@ -60,4 +60,6 @@ public class MovieUser extends User{
     }
 
     public void decBalance(int price){ this.balance=balance-price; }
+
+    public void removeMovie(Movie movie){movies.remove(movie);}
 }
