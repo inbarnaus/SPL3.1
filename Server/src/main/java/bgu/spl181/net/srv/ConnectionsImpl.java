@@ -35,14 +35,9 @@ public class ConnectionsImpl<T> implements Connections<T> {
     @Override
     public void disconnect(int connectionId) {
         if(handlers.containsKey(connectionId)){
-            try {
-                handlers.get(connectionId).close();
-                handlers.remove(connectionId);
-                loggedin.remove(connectionId);
-                loggedinUsers.remove(idToUser(connectionId));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            handlers.remove(connectionId);
+            loggedin.remove(connectionId);
+            loggedinUsers.remove(idToUser(connectionId));
         }
     }
     public void add(int connectionid ,ConnectionHandler<T> handler){

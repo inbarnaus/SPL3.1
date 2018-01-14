@@ -9,7 +9,7 @@ using std::cerr;
 using std::endl;
 using std::string;
  
-ConnectionHandler::ConnectionHandler(string host, short port): host_(host), port_(port), io_service_(), socket_(io_service_){}
+ConnectionHandler::ConnectionHandler(string host, short port): host_(host), port_(port), io_service_(), socket_(io_service_), isConnected(1){}
     
 ConnectionHandler::~ConnectionHandler() {
     close();
@@ -98,13 +98,14 @@ bool ConnectionHandler::sendFrameAscii(const std::string& frame, char delimiter)
 	if(!result) return false;
 	return sendBytes(&delimiter,1);
 }
-bool ConnectionHandler::isconnected() {
-    return socket_.is_open();
+int ConnectionHandler::isconnected() {
+    return isConnected;
 }
  
 // Close down the connection properly.
 void ConnectionHandler::close() {
     try{
+        isConnected=0;
         socket_.close();
     } catch (...) {
         std::cerr << "104"<< std::endl;

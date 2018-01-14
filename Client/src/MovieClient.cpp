@@ -10,22 +10,27 @@ private:
     boost::mutex * _mutex;
     ConnectionHandler &_connectionHandler;
 public:
-    ReadFromKeyboard (int id, boost::condition_variable* m_cond ,  boost::mutex* mutex, ConnectionHandler &connectionHandler) : _id(id), _m_cond(m_cond),_mutex(mutex), _connectionHandler(connectionHandler){}
+    ReadFromKeyboard (int id, boost::condition_variable* m_cond ,  boost::mutex* mutex , ConnectionHandler &connectionHandler) : _id(id), _m_cond(m_cond),_mutex(mutex), _connectionHandler(connectionHandler){}
     
     void run(){
         while (_connectionHandler.isconnected()) {
             const short bufsize = 1024;
             char buf[bufsize];
-            std::cin.getline(buf, bufsize);
-                    std::string line(buf);
             {
-                boost::mutex::scoped_lock lock(*_mutex);
-                if (_connectionHandler.isconnected()&&!_connectionHandler.sendLine(line)) {\
-                    std::cout << "Disconnected. Exiting...\n" << std::endl;
-                    _m_cond->notify_all();
+                if(_connectionHandler.isconnected()){
+                    std::cin.getline(buf, bufsize);
+                    std::string line(buf);
+                    if (!_connectionHandler.sendLine(line)) {
+                        std::cout << "Disconnected. Exiting...\n" << std::endl;
+                        break;
+                    }
+                    if(line=="SIGNOUT"){
+                        boost::mutex::scoped_lock lock(*_mutex);
+                        _m_cond->wait(lock);
+                    }
+                }else{
                     break;
                 }
-                _m_cond->notify_all();
             }
         }
     }
@@ -42,34 +47,18 @@ public:
     
     void run(){
         while (_connectionHandler.isconnected()) {
-            int len;
-            // We can use one of three options to read data from the server:
-            // 1. Read a fixed number of characters
-            // 2. Read a line (up to the newline character using the getline() buffered reader
-            // 3. Read up to the null character
             std::string answer="";
-            // Get back an answer: by using the expected number of bytes (len bytes + newline delimiter)
-            // We could also use: connectionHandler.getline(answer) and then get the answer without the newline char at the end
-            {
-                while(answer==""){
-                    if (!_connectionHandler.getLine(answer)) {
-                        std::cout << "Disconnected. Exiting...\n" << std::endl;
-                        _m_cond->notify_all();
-                        break;       
-                    }
+            while((_connectionHandler.isconnected()) && (answer=="")){
+                if (!_connectionHandler.getLine(answer)) {
                     _m_cond->notify_all();
+                    break;       
                 }
             }
-            
-            len=answer.length();
-            // A C string must end with a 0 char delimiter.  When we filled the answer buffer from the socket
-            // we filled up to the \n char - we must make sure now that a 0 char is also present. So we truncate last character.
-            answer.resize(len-1);
-            std::cout << answer <<std::endl;
-            if (answer == "ACK signout succeeded") {
-                std::cout << "Exiting...\n" << std::endl;
+            std::cout << answer;
+            if (answer=="ACK signout succeeded\n") {\
                 _connectionHandler.close();
                 _m_cond->notify_all();
+                break;
             }
         }
     }

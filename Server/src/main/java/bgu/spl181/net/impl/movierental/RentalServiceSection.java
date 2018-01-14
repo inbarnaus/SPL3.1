@@ -1,8 +1,9 @@
-package bgu.spl181.net.api.ustbp;
+package bgu.spl181.net.impl.movierental;
 
+import bgu.spl181.net.api.ustbp.Database;
+import bgu.spl181.net.api.ustbp.USTBP;
+import bgu.spl181.net.api.ustbp.User;
 import bgu.spl181.net.api.ustbp.commands.*;
-import bgu.spl181.net.impl.movierental.Movie;
-import bgu.spl181.net.impl.movierental.MovieUser;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -29,7 +30,7 @@ public class RentalServiceSection extends USTBP {
                     String movie = commandParts.get(2);
                     boolean canRent = userCanRent(user, movie, database);
                     if (canRent) {
-                        Movie rentMovie=((MovieDatabase) database).rentMovie(movie);
+                        Movie rentMovie=((MovieDatabase) database).rentMovie(movie, user);
                         if(rentMovie==null)
                             connections.send(connectionId, new ERRORCommand("request rent failed"));
                         else {
@@ -48,15 +49,9 @@ public class RentalServiceSection extends USTBP {
                     connections.send(connectionId, new ERRORCommand("request return failed"));
                 else{
                     Movie movieInfo=((MovieDatabase)database).getMovie(movie);
-<<<<<<< HEAD
                     ((MovieDatabase)database).returnMovie(movieInfo, (MovieUser)user);
-                    connections.send(connectionId, new ACKCommand("request "+ movie+" "+"success"));
-                    connections.broadcast(new BROADCASTCommand("movie "+ movie +" "+
-=======
-                    ((MovieDatabase)database).returnMovie(movieInfo);
                     connections.send(connectionId, new ACKCommand("request \""+ movie+"\" "+"success"));
                     connections.broadcast(new BROADCASTCommand("movie \""+ movie +"\" "+
->>>>>>> origin/master
                             movieInfo.getAvailableAmount()+" "+movieInfo.getPrice()));
                 }
                 break;
@@ -116,20 +111,21 @@ public class RentalServiceSection extends USTBP {
                 break;
             case "addmovie":
                 Movie movie2=((MovieDatabase) database).getMovie(commandParts.get(2));
+                String stringPrice=commandParts.get(4);
+                int price=Integer.parseInt(stringPrice);
                 if(!logedIn && !((MovieUser)user).isAdmin())
                     connections.send(connectionId, new ERRORCommand("request addmovie failed"));
-                else if (!((MovieDatabase) database).movieExist(commandParts.get(2)))
-                    connections.send(connectionId, new ERRORCommand("request addmovie failed"));
-                else if(!((MovieUser)user).isAdmin() || movie2.getPrice()<1)
+                else if (movie2!=null || price<1)
                     connections.send(connectionId, new ERRORCommand("request addmovie failed"));
                 else{
                     List<String> bannedCountries=new ArrayList<>();
                     for(int i=5; i<commandParts.size();i++)
                         bannedCountries.add(commandParts.get(i));
-                    int amount= Integer.getInteger(commandParts.get(3));
+                    int amount= Integer.parseInt(commandParts.get(3));
                     Movie newMovie=new Movie(((MovieDatabase)database).getMovieCounter(),
-                            commandParts.get(2), commandParts.get(4),bannedCountries, amount, amount);
+                            commandParts.get(2), commandParts.get(4),bannedCountries, amount, price);
                     ((MovieDatabase)database).addMovie(newMovie);
+                    connections.send(connectionId, new ACKCommand("addmovie \""+commandParts.get(2)+ "\" success"));
                 }
                 break;
 
