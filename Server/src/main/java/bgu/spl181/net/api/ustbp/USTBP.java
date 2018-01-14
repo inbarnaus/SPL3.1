@@ -4,8 +4,7 @@ import bgu.spl181.net.api.bidi.BidiMessagingProtocol;
 import bgu.spl181.net.api.bidi.Connections;
 import bgu.spl181.net.api.ustbp.commands.ACKCommand;
 import bgu.spl181.net.api.ustbp.commands.ERRORCommand;
-import bgu.spl181.net.impl.movierental.MovieUser;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import bgu.spl181.net.impl.MovieUser;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -62,7 +61,7 @@ public abstract class USTBP implements BidiMessagingProtocol<Serializable>{
 
         switch (commandParts.get(0)){
             case "LOGIN":
-                User user=database.checkIfExist(commandParts.get(1));
+                user=database.checkIfExist(commandParts.get(1));
                 if(commandParts.size()<3 || user==null || connections.isLoggedIn(connectionId) || !user.correctPassword(commandParts.get(2))) {
                     connections.send(connectionId, new ERRORCommand("login failed"));
                 }

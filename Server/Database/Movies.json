@@ -28,6 +28,38 @@
       "totalAmount": "1"
     },
     {
+      "id": "1",
+      "name": "The Godfather",
+      "price": "2",
+      "bannedCountries": [],
+      "availableAmount": 7,
+      "totalAmount": 7
+    },
+    {
+      "id": "1",
+      "name": "The Godfather",
+      "price": "2",
+      "bannedCountries": [],
+      "availableAmount": 7,
+      "totalAmount": 7
+    },
+    {
+      "id": "1",
+      "name": "The Godfather",
+      "price": "2",
+      "bannedCountries": [],
+      "availableAmount": 7,
+      "totalAmount": 7
+    },
+    {
+      "id": "1",
+      "name": "The Godfather",
+      "price": "2",
+      "bannedCountries": [],
+      "availableAmount": 7,
+      "totalAmount": 7
+    },
+    {
       "id": "4",
       "name": "Justice League",
       "price": "17",
@@ -36,8 +68,8 @@
         "iran",
         "lebanon"
       ],
-      "availableAmount": "4",
-      "totalAmount": "4"
+      "availableAmount": 3,
+      "totalAmount": 4
     }
   ]
 }

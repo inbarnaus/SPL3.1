@@ -30,9 +30,8 @@ public interface Server<T> extends Closeable {
     public static <T> Server<T>  threadPerClient(
             int port,
             Supplier<BidiMessagingProtocol<T>> protocolFactory,
-            Supplier<MessageEncoderDecoder<T> > encoderDecoderFactory,
-            Connections<T> connections) {
-        return new BaseServer<T>(port, protocolFactory, encoderDecoderFactory, connections) {
+            Supplier<MessageEncoderDecoder<T> > encoderDecoderFactory) {
+        return new BaseServer<T>(port, protocolFactory, encoderDecoderFactory) {
 
             @Override
             protected void execute(BlockingConnectionHandler<T> handler) {
@@ -55,9 +54,8 @@ public interface Server<T> extends Closeable {
             int nthreads,
             int port,
             Supplier<BidiMessagingProtocol<T>> protocolFactory,
-            Supplier<MessageEncoderDecoder<T>> encoderDecoderFactory,
-            Connections<T> connections) {
-        return new Reactor<T>(nthreads, port, protocolFactory, encoderDecoderFactory, connections);
+            Supplier<MessageEncoderDecoder<T>> encoderDecoderFactory) {
+        return new Reactor<T>(nthreads, port, protocolFactory, encoderDecoderFactory);
     }
 
 }

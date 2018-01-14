@@ -1,11 +1,7 @@
 package bgu.spl181.net.api.ustbp;
 
-import bgu.spl181.net.impl.movierental.MovieUser;
 import com.google.gson.*;
 import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
-import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.io.*;
 
@@ -83,6 +79,12 @@ public abstract class Database<T> {
             }
         }
         return ans;
+    }
+
+    public void updateUserState(User user){
+        synchronized (usersLock){
+            updateUser(user);
+        }
     }
     protected abstract User getUserInstance(JsonObject juser);
 
