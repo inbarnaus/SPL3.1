@@ -31,6 +31,7 @@ public abstract class USTBP implements BidiMessagingProtocol<Serializable>{
     }
 
     public void process(Serializable message){
+        
         String[] message1=((String)message).split("\r");
         String[] moviesParts=((String)message1[0]).split(" ");
         List<String> commandParts=new ArrayList<>();
