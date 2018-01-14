@@ -1,4 +1,4 @@
-package bgu.spl181.net.impl;
+package bgu.spl181.net.impl.movierental;
 
 import bgu.spl181.net.api.ustbp.Database;
 import bgu.spl181.net.api.ustbp.USTBP;
@@ -79,12 +79,11 @@ public class RentalServiceSection extends USTBP {
                     if(!logedIn || commandParts.size()<4)
                         connections.send(connectionId, new ERRORCommand("request balance add failed"));
                     else{
-                        Integer amount=Integer.parseInt(commandParts.get(3));
+                        Integer amount=Integer.getInteger(commandParts.get(3));
                         if(amount<1)
                             connections.send(connectionId, new ERRORCommand("request balance add failed"));
                         else {
                             ((MovieUser)user).addBalance(amount);
-                            database.updateUserState(user);
                             connections.send(connectionId,
                                     new ACKCommand("balance "+ ((MovieUser)user).getBalance()+" added "+amount));
                         }
@@ -112,11 +111,11 @@ public class RentalServiceSection extends USTBP {
                 break;
             case "addmovie":
                 Movie movie2=((MovieDatabase) database).getMovie(commandParts.get(2));
+                String stringPrice=commandParts.get(4);
+                int price=Integer.parseInt(stringPrice);
                 if(!logedIn && !((MovieUser)user).isAdmin())
                     connections.send(connectionId, new ERRORCommand("request addmovie failed"));
-                else if (((MovieDatabase) database).movieExist(commandParts.get(2)))
-                    connections.send(connectionId, new ERRORCommand("request addmovie failed"));
-                else if(!((MovieUser)user).isAdmin() || movie2.getPrice()<1)
+                else if (movie2!=null || price<1)
                     connections.send(connectionId, new ERRORCommand("request addmovie failed"));
                 else{
                     List<String> bannedCountries=new ArrayList<>();
@@ -124,8 +123,9 @@ public class RentalServiceSection extends USTBP {
                         bannedCountries.add(commandParts.get(i));
                     int amount= Integer.parseInt(commandParts.get(3));
                     Movie newMovie=new Movie(((MovieDatabase)database).getMovieCounter(),
-                            commandParts.get(2), commandParts.get(4),bannedCountries, amount, amount);
+                            commandParts.get(2), commandParts.get(4),bannedCountries, amount, price);
                     ((MovieDatabase)database).addMovie(newMovie);
+                    connections.send(connectionId, new ACKCommand("addmovie \""+commandParts.get(2)+ "\" success"));
                 }
                 break;
 

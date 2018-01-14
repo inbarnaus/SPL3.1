@@ -4,7 +4,8 @@ import bgu.spl181.net.api.bidi.BidiMessagingProtocol;
 import bgu.spl181.net.api.bidi.Connections;
 import bgu.spl181.net.api.ustbp.commands.ACKCommand;
 import bgu.spl181.net.api.ustbp.commands.ERRORCommand;
-import bgu.spl181.net.impl.MovieUser;
+import bgu.spl181.net.impl.movierental.MovieUser;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -31,7 +32,6 @@ public abstract class USTBP implements BidiMessagingProtocol<Serializable>{
     }
 
     public void process(Serializable message){
-        
         String[] message1=((String)message).split("\r");
         String[] moviesParts=((String)message1[0]).split(" ");
         List<String> commandParts=new ArrayList<>();
@@ -69,7 +69,7 @@ public abstract class USTBP implements BidiMessagingProtocol<Serializable>{
 
         switch (commandParts.get(0)){
             case "LOGIN":
-                user=database.checkIfExist(commandParts.get(1));
+                User user=database.checkIfExist(commandParts.get(1));
                 if(commandParts.size()<3 || user==null || connections.isLoggedIn(connectionId) || !user.correctPassword(commandParts.get(2))) {
                     connections.send(connectionId, new ERRORCommand("login failed"));
                 }
@@ -84,9 +84,15 @@ public abstract class USTBP implements BidiMessagingProtocol<Serializable>{
                 if(!ans)
                     connections.send(connectionId, new ERRORCommand("signout failed"));
                 else
+<<<<<<< HEAD
                     connections.send(connectionId, new ACKCommand("signout succeeded"));
-                    signedOut=true;
                     connections.disconnect(connectionId);
+                    signedOut=true;
+=======
+                    signedOut=true;
+                    connections.send(connectionId, new ACKCommand("signout succeeded"));
+                    connections.disconnect(connectionId);
+>>>>>>> 54de68d05789639c182bfd5009d134d9052c599e
                 break;
 
             case "REGISTER":
