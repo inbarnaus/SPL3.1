@@ -5,6 +5,7 @@ import bgu.spl181.net.api.ustbp.User;
 import bgu.spl181.net.srv.bidi.ConnectionHandler;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -28,7 +29,7 @@ public class ConnectionsImpl<T> implements Connections<T> {
         Iterator it = loggedin.entrySet().iterator();
         while (it.hasNext()){
             Map.Entry pair = (Map.Entry)it.next();
-            ((BlockingConnectionHandler)pair.getValue()).send(msg);
+            ((ConnectionHandler<T>)pair.getValue()).send(msg);
         }
     }
 
