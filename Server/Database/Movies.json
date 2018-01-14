@@ -38,6 +38,18 @@
       ],
       "availableAmount": "4",
       "totalAmount": "4"
+    },
+    {
+      "id": "1",
+      "name": "South Park: Bigger, Longer \u0026 Uncut",
+      "price": "9",
+      "bannedCountries": [
+        "Israel",
+        "Iran",
+        "Italy"
+      ],
+      "availableAmount": 30,
+      "totalAmount": 9
     }
   ]
 }

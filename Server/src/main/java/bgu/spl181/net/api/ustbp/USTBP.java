@@ -41,18 +41,25 @@ public abstract class USTBP implements BidiMessagingProtocol<Serializable>{
         else {
             int index = 0;
             while (index != moviesParts.length) {
-                if (moviesParts[index].contains("\"")) {
-                    if (index != moviesParts.length - 1) {
-                        String s = moviesParts[index].substring(1);
+                if (moviesParts[index].contains("\"") ||
+                        moviesParts[index].contains("”") ||
+                        moviesParts[index].contains("“")) {
+                    String s = moviesParts[index].substring(1);
+
+                    if(s.contains("\"") || s.contains("”") || s.contains("“"))
+                        s=s.substring(0, s.length()-1);
+                    else {
                         index++;
-                        while (index != moviesParts.length - 1 && !moviesParts[index].contains("\"")) {
+                        while (index != moviesParts.length - 1 && (!moviesParts[index].contains("\"") &&
+                                !moviesParts[index].contains("”") &&
+                                !moviesParts[index].contains("“"))) {
                             s = s + " " + moviesParts[index];
                             index++;
                         }
                         s = s + " " + moviesParts[index].substring(0, moviesParts[index].length() - 1);
-                        commandParts.add(s);
-                        index++;
                     }
+                    commandParts.add(s);
+                    index++;
                 } else {
                     commandParts.add(moviesParts[index]);
                     index++;
@@ -77,9 +84,9 @@ public abstract class USTBP implements BidiMessagingProtocol<Serializable>{
                 if(!ans)
                     connections.send(connectionId, new ERRORCommand("signout failed"));
                 else
+                    connections.send(connectionId, new ACKCommand("signout succeeded"));
                     connections.disconnect(connectionId);
                     signedOut=true;
-                    connections.send(connectionId, new ACKCommand("signout succeeded"));
                 break;
 
             case "REGISTER":
